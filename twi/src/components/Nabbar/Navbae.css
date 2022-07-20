@@ -22,7 +22,7 @@
 }
 
 .navbar{
-    box-shadow: 0px 5px 10px 1px  #244F7E;
+    box-shadow: 0px 2px 7px 1px  #244F7E;
     position: fixed;
     width: 100%;
     /* background: rgba(245, 245, 245, 0.701); */
@@ -30,7 +30,7 @@
     color: #6EC1E4;
     opacity: 0.85;
     z-index: 100;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
 
 }
 

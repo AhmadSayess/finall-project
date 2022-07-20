@@ -1,15 +1,19 @@
 import './App.css';
-import { Footer } from './components/Footer/Footer';
+// import { Footer } from './components/Footer/Footer';
 import { Navbar } from './components/Nabbar/Navbar';
-// import { Login } from './pages/login';
-
+import {BrowserRouter,Routes,Route} from "react-router-dom";
+import Login from './pages/Login';
 function App() {
   return (
-    <div className="App">
-      {/* <Login/> */}
-      <Navbar/>
-      {/* <Footer/> */}
-    </div>
+  <BrowserRouter>
+  <Routes>
+
+    <Route index path="/" element={<Navbar/>}/>
+    <Route index path="/login" element={<Login/>}/>
+
+  </Routes>
+  </BrowserRouter>    
+      
   );
 }
 
