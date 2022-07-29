@@ -1,0 +1,8 @@
+.imgC {
+    width: 50%;
+    margin: 20px 25%;
+}
+
+.imgC > img {
+    /* transition: 0.5s; */
+}

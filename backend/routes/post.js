@@ -36,9 +36,11 @@ var upload = multer({
 
 
 router.get('/', controller.getAll)
+router.get('/latest', controller.getLatest)
 router.get('/:id', controller.getbyId)
-router.post("/", upload.array("image", 10),controller.post);
-// router.post('/', controller.post)
+router.get('/getAllByCat/:id', controller.getByCategory)
+router.get('/getLatestByCat/:id', controller.getLatestByCategory)
+router.post("/",upload.array("image", 4),controller.addNewPost);
 router.put('/:id', controller.put)
 router.delete('/:id', controller.delete)
 

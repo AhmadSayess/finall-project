@@ -3,17 +3,11 @@ const router  = express.Router();
 const controller = require('../controllers/aboutusController');
 
 
-router.get('/', controller.get)
+router.get('/', controller.getAll)
+router.get('/:id', controller.getbyId)
 router.post('/', controller.post)
-router.put('/', controller.put)
-router.delete('/', controller.delete)
-
-
-
-
-
-
-
+router.put('/:id', controller.put)
+router.delete('/:id', controller.delete)
 
 
 module.exports = router;

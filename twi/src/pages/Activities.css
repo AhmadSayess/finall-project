@@ -1,0 +1,57 @@
+.titile{
+  text-align: center;
+  margin-top: 15px;
+  background-color: #fcf7eb;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #34384C;
+  font-size: 35px;
+}
+.cardse img {
+  width: 820px;
+  height: 700px;
+  margin-top: 45px;
+}
+.cardse p {
+ margin-right: 30px;
+ margin-top: 25px;
+
+}
+.date{
+ margin-top: 35px;
+ margin-bottom: 20px;
+ font-family: "Cairo", Sans-serif;
+ color: #244f7e;
+ font-size: 16px;
+ font-family: Niramit;
+
+}
+.seconds a {
+ text-decoration: none;
+ color: #34384c;
+ font-family: "Cairo", Sans-serif;
+ font-size: 25px;
+}
+.paragraph{
+  /* margin-top: 25px; */
+ color: #34384C;
+ font-family: Niramit ;
+ font-size: 15px;
+
+ 
+ }
+.cardse{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 35px;
+  /* margin-top: 135px; */
+
+}
+.seconds{
+  line-height: 25px;
+  max-width: 555px;
+}

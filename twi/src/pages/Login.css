@@ -6,7 +6,7 @@
 
 body{
     font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .wave{
@@ -41,10 +41,13 @@ body{
 
 .img img{
 	width: 500px;
+    padding-top: 150px;
+
 }
 
 form{
 	width: 360px;
+	margin-top: 5px;
 }
 
 .login-content img{
@@ -53,11 +56,13 @@ form{
 
 .login-content h2{
 	margin: 15px 0;
-	color: #333;
+	color: #244F7E;
 	text-transform: uppercase;
-	font-size: 2.9rem;
+	font-size: 3rem;
 }
-
+/* .title-twi{
+	color: #6EC1E4;
+} */
 .login-content .input-div{
 	position: relative;
     display: grid;
@@ -72,7 +77,8 @@ form{
 }
 
 .i{
-	color: #d9d9d9;
+	color: #244F7E;
+	font-size: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -97,7 +103,7 @@ form{
 	transition: .3s;
 }
 
-.input-div:before, .input-div:after{
+/* .input-div:before, .input-div:after{
 	content: '';
 	position: absolute;
 	bottom: -2px;
@@ -105,7 +111,7 @@ form{
 	height: 2px;
 	background-color: #38d39f;
 	transition: .4s;
-}
+} */
 
 .input-div:before{
 	right: 50%;
@@ -124,9 +130,9 @@ form{
 	font-size: 15px;
 }
 
-.input-div.focus > .i > i{
+/* .input-div.focus > .i > i{
 	color: #38d39f;
-}
+} */
 
 .input-div > div > input{
 	position: absolute;
@@ -138,7 +144,7 @@ form{
 	outline: none;
 	background: none;
 	padding: 0.5rem 0.7rem;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	color: #555;
 	font-family: 'poppins', sans-serif;
 }
@@ -167,7 +173,7 @@ a:hover{
 	border-radius: 25px;
 	outline: none;
 	border: none;
-	background-color:  #6EC1E4;
+	background-color: #244F7E;
 	background-size: 200%;
 	font-size: 1.2rem;
 	color: #fff;
@@ -176,9 +182,11 @@ a:hover{
 	margin: 1rem 0;
 	cursor: pointer;
 	transition: .5s;
+	margin-top: 40px;
 }
 .btn:hover{
 	background-position: right;
+	background-color: #6EC1E4;
 }
 
 
@@ -191,6 +199,7 @@ a:hover{
 @media screen and (max-width: 1000px){
 	form{
 		width: 290px;
+		margin-top: 5px;
 	}
 
 	.login-content h2{

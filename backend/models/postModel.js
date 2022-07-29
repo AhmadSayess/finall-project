@@ -16,6 +16,11 @@ const postSchema = new Schema({
     type :Array,
     required : true
  },
+ date :{
+   type :Date,
+   default:Date.now,
+   required : true
+ },
  category: {
    type: Schema.Types.ObjectId,
    ref: "category",
