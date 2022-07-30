@@ -20,7 +20,7 @@ textarea {
   min-height: 100vh;
   padding: 2rem;
   /* background-color: #12192c; */
-  background-color: #244F7E;
+  background-color: #436284;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@ textarea {
 }
 
 .contact-form {
-  background-color: #6EC1E4;
+  background-color: #437b99;
   position: relative;
 }
 
@@ -78,21 +78,21 @@ form {
   margin: 1rem 0;
 }
 
-.input {
+.inpu {
   width: 100%;
-  outline: none;
-  border: 2px solid rgb(148, 148, 148);
-  background: none;
-  padding: 0.6rem 1.2rem;
-  color: #555;
-  font-weight: 500;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  border-radius: 25px;
-  transition: 0.3s;
+    outline: none;
+    border: 2px solid rgb(255 255 255);
+    background: none;
+    padding: 0.4rem 1.2rem;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    border-radius: 25px;
+    transition: 0.3s;
 }
 
-textarea.input {
+textarea.inpu {
   padding: 0.8rem 1.2rem;
   min-height: 150px;
   border-radius: 22px;
@@ -359,3 +359,6 @@ textarea.input {
   font-weight: bold;
 } 
 
+::placeholder {
+  color: white;
+}

@@ -75,6 +75,13 @@ form{
 .login-content .input-div.one{
 	margin-top: 0;
 }
+/* .login-input-email-pass::placeholder {
+	color: red;
+  } */
+  ::-webkit-input-placeholder { /* Edge */
+	color: white;
+  }
+  
 
 .i{
 	color: #244F7E;
@@ -101,7 +108,7 @@ form{
 	color: #999;
 	font-size: 18px;
 	transition: .3s;
-}
+}	
 
 /* .input-div:before, .input-div:after{
 	content: '';

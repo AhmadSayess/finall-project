@@ -63,7 +63,7 @@ function Login() {
                 <FaUserAlt></FaUserAlt>
               </div>
               <div class="div">
-                <input type="text" name="email" onChange={loginHandleChange} value={adminlogin.email} class="input" placeholder="Enter Your Email" />
+                <input className="input" type="text" name="email" onChange={loginHandleChange} value={adminlogin.email}  placeholder="Enter Your Email" />
               </div>
             </div>
             <div class="input-div pass">
@@ -71,7 +71,7 @@ function Login() {
                <FaLock></FaLock>
               </div>
               <div class="div">
-                <input type="password" name="password" onChange={loginHandleChange} value={adminlogin.password} class="input" placeholder="Enter Your Password" />
+                <input  className="input" type="password" name="password" onChange={loginHandleChange} value={adminlogin.password}  placeholder="Enter Your Password vdfvdfvdfvdfvdfvdvd" />
               </div>
             </div>
 

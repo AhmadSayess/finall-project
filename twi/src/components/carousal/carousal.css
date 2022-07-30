@@ -6,3 +6,65 @@
 .imgC > img {
     /* transition: 0.5s; */
 }
+/* .letAr{
+    position: absolute;
+    left: 4px;
+    z-index: 10;
+    top: 200px;
+}
+
+.riAr{
+     position: absolute;
+    left: 4px;
+    z-index: 10;
+    top: 200px;
+} */
+.sliderContainer{
+    margin: auto;
+    width: 100%;
+    /* background-color: red; */
+}
+.mySlider{
+    z-index: 100;
+    width: 95%;
+    height: 100px;
+    margin: auto;
+    /* background-color: red; */
+    position: relative;
+}
+.SliderSection{
+    /* background-color: red; */
+    width: 100%;
+    border-top:1px; 
+    border-top-color: black;
+    height: 80%;
+    margin-top: 400px;
+    /* padding-right: 40px;
+    padding-left: 40px; */
+}
+.DivSlider{
+    background-image: url("../../images/Slider-2.jpg");
+    /* background-size: auto; */
+    display: flex;
+    flex-direction: row;
+    background-repeat: no-repeat;
+    background-size: 300px 100px;
+    margin: auto;
+    margin-top: 400px;
+    justify-content:space-around ;
+    justify-items: center;
+}
+.contentSlider{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+}
+
+.singleSlider{
+    width: 100%;
+    height: 400px;
+    background-image: url("../../images/Slider-2.jpg");
+    background-color: red;
+    
+}

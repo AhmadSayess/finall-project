@@ -52,22 +52,22 @@ export const ContactUs = () => {
       <form action="index.html" autoComplete="off">
         <h3 className="title">Contact us</h3>
         <div className="input-container">
-          <input type="text" name="name" className="input" placeholder='enter your emill'/>
+          <input type="text" name="name" className='inpu' placeholder='enter your full name'/>
           {/* <label >Username</label> */}
           <span>Username</span>
         </div>
         <div className="input-container">
-          <input type="email" name="email" className="input" placeholder='enter your emill' />
+          <input type="email" name="email" className='inpu' placeholder='enter your email' />
           {/* <label >Email</label> */}
           <span>Email</span>
         </div>
         <div className="input-container">
-          <input type="tel" name="phone" className="input" placeholder='enter your emill'  />
+          <input type="tel" name="phone" className='inpu' placeholder='enter your phone'  />
           {/* <label >Phone</label> */}
           <span>Phone</span>
         </div>
         <div className="input-container textarea">
-          <textarea name="message" className="input" defaultValue={""} placeholder='enter your emill'/>
+          <textarea name="message" className='inpu' defaultValue={""} placeholder='enter your message'/>
           {/* <label >Message</label> */}
           <span>Message</span>
         </div>
