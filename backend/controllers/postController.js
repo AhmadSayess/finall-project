@@ -69,7 +69,7 @@ console.log({id});
 
   getbyId(req, res, next) {
     let { id } = req.params;
-    Model.findOne({ _id: id }, (err, response) => {
+    Model.findById(id, (err, response) => {
       if (err) return next(err);
       res.status(200).send({
         success: true,
