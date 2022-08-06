@@ -15,7 +15,6 @@ import Search from "../components/shared/Search";
 import CallToActionIcon from "@mui/icons-material/CallToAction";
 import Loading from "../components/shared/Loading";
 
-
 //// for a popup ///
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -23,7 +22,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Slide from "@mui/material/Slide";
 //// for a popup ///
-
 
 //// for a text filed ///
 import Box from "@mui/material/Box";
@@ -35,8 +33,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 //// for a popup ///
-
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,9 +57,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const Category = () => {
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState([]); /// to get all gategory ///
   const [loading, setLoading] = useState(false);
 
+  //// to get all category ///
   const getAllcategory = async () => {
     await axios
       .get("http://localhost:5000/api/category")
@@ -83,28 +80,48 @@ export const Category = () => {
     setLoading(true);
     getAllcategory();
   }, []);
+  //// to get all category ///
 
+  //// satart to add a category ///
+  const [name, setName] = useState(""); /// state for the to  add a new gategory ///
+  const data = {
+    name: name,
+  };
+  const Handeladdcategory = (e) => {
+    //.preventDefault();
+    e.persist();
+    axios
+      .post("http://localhost:5000/api/category", data)
+      .then((res) => {
+        setName(res.data.name);
+        getAllcategory();
+        // toast.success("Category  added  Successfully")
+
+        console.log(res.data.name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to add a category ///
 
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
   //// for a popup ///
-
-
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
         <Search placeholder="Search for a category" />
-                {/* for a popup */}
-                <Buttons
+
+        {/* for a popup */}
+        <Buttons
           buttonStyle="btn--success--solid"
           buttonSize="btn-lg"
           text={"Add Category"}
@@ -118,41 +135,44 @@ export const Category = () => {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { m: 1.5, width: "49ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    id="standard-basic"
-                    label="Add A New Category "
-                    variant="standard"
-                  />
-                </Box>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Buttons
-                buttonStyle="btn--danger--solid"
-                buttonSize="btn-lg"
-                text={"Cancel "}
-                onClick={handleClose}
-              />
-              <Buttons
-                buttonStyle="btn--success--solid"
-                buttonSize="btn-lg"
-                text={"Save Project"}
-                onClick={handleClose}
-              />
-            </DialogActions>
+            <form onSubmit={Handeladdcategory}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label="Add A New Category"
+                      variant="standard"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save Project"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
           </Dialog>
         </div>
-
         {/* for a popup */}
       </div>
 

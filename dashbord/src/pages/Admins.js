@@ -1,6 +1,7 @@
 // import React, { useState } from "react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+// import {toast } from 'react-toastify';
 import Loading from "../components/shared/Loading";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -59,6 +60,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function Admins() {
+  // toast.configure();
   const [admin, setAdmin] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -82,6 +84,36 @@ function Admins() {
     getAllAdmin();
     setLoading(true);
   }, []);
+
+  //// for a add a admin ///
+  const [fullname, setFullname] = useState(""); /// state for the input full name ///
+  const [email, setEmail] = useState(""); /// state for the input email///
+  const [password, setPassword] = useState(""); /// state for the input password ///
+
+  const data = {
+    fullname: fullname,
+    email: email,
+    password: password,
+  };
+  const Handeladdadmin = async (e) => {
+    // e.preventDefault();
+    // e.persist();
+    await axios
+      .post("http://localhost:5000/api/admin/register", data)
+      .then((res) => {
+        setFullname(res.data.fullname);
+        setEmail(res.data.email);
+        setPassword(res.data.password);
+        getAllAdmin();
+        // toast.success("Admin added  Successfully")
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //// for a add a admin ///
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
@@ -113,54 +145,62 @@ function Admins() {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { m: 1.5, width: "49ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  {/* for the input in the popup */}
-                  <TextField
-                    id="standard-basic"
-                    label="Enter your full name"
-                    variant="standard"
-                  />
+            <form onSubmit={Handeladdadmin}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    {/* for the input in the popup */}
+                    <TextField
+                      id="standard-basic"
+                      label="Enter your full name"
+                      variant="standard"
+                      value={fullname}
+                      onChange={(e) => setFullname(e.target.value)}
+                    />
 
-                  <TextField
-                    id="standard-basic"
-                    label="Enter your email"
-                    variant="standard"
-                  />
+                    <TextField
+                      id="standard-basic"
+                      label="Enter your email"
+                      variant="standard"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
 
-                  <TextField
-                    id="filled-password-input"
-                    label="Enter your password"
-                    type="password"
-                    autoComplete="current-password"
-                    variant="standard"
-                  />
-                  {/* END for the input in the popup */}
-                </Box>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Buttons
-                buttonStyle="btn--danger--solid"
-                buttonSize="btn-lg"
-                text={"Cancel "}
-                onClick={handleClose}
-              />
-              <Buttons
-                buttonStyle="btn--success--solid"
-                buttonSize="btn-lg"
-                text={"Save Admin"}
-                onClick={handleClose}
-              />
-            </DialogActions>
+                    <TextField
+                      id="filled-password-input"
+                      label="Enter your password"
+                      type="password"
+                      autoComplete="current-password"
+                      variant="standard"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    {/* END for the input in the popup */}
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save Admin"}
+                  type='submit'
+                />
+              </DialogActions>
+            </form>
           </Dialog>
         </div>
 

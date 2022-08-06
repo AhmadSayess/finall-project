@@ -81,6 +81,27 @@ function Projects() {
     getAllProjects();
   }, []);
 
+  //// satart to add a category ///
+  const [name, setName] = useState(""); /// state for the to  add a new project ///
+  const data = {
+    name: name,
+  };
+  const HandeladdProject = (e) => {
+    //e.preventDefault();
+    e.persist();
+    axios
+      .post("http://localhost:5000/api/projects/", data)
+      .then((res) => {
+        setName(res.data.name);
+        getAllProjects();
+        console.log(res.data.name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to add a category ///
+
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
 
@@ -96,7 +117,7 @@ function Projects() {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search  placeholder="Search for a project" />
+        <Search placeholder="Search for a project" />
 
         {/* for a popup */}
         <Buttons
@@ -113,38 +134,42 @@ function Projects() {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { m: 1.5, width: "49ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    id="standard-basic"
-                    label="Add A New Project "
-                    variant="standard"
-                  />
-                </Box>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Buttons
-                buttonStyle="btn--danger--solid"
-                buttonSize="btn-lg"
-                text={"Cancel "}
-                onClick={handleClose}
-              />
-              <Buttons
-                buttonStyle="btn--success--solid"
-                buttonSize="btn-lg"
-                text={"Save Project"}
-                onClick={handleClose}
-              />
-            </DialogActions>
+            <form onSubmit={HandeladdProject}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label="Add A New Project "
+                      variant="standard"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save Project"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
           </Dialog>
         </div>
 
