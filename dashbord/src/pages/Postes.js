@@ -157,6 +157,7 @@ function Postes() {
   //// for a popup ///
   return (
     <div className="projects">
+      
       <div className="d-flex justify-content-around">
         <Search placeholder="Search for a postes" />
         {/* for a popup */}
@@ -189,7 +190,6 @@ function Postes() {
                     type="file"
                     variant="standard"
                     multiple
-                    
                   />
 
                   <TextField
@@ -206,7 +206,7 @@ function Postes() {
                   {/*  for a input select */}
                   <div>
                     <FormControl sx={{ m: 0.1, width: 442 }}>
-                      <InputLabel id="demo-multiple-chip-label">ALL</InputLabel>
+                      <InputLabel id="demo-multiple-chip-label">ALL Category</InputLabel>
                       <Select
                         labelId="demo-multiple-chip-label"
                         id="demo-multiple-chip"
@@ -216,7 +216,7 @@ function Postes() {
                         input={
                           <OutlinedInput
                             id="select-multiple-chip"
-                            label="All"
+                            label="ALL Category"
                           />
                         }
                         renderValue={(selected) => (
@@ -294,12 +294,12 @@ function Postes() {
                     Description
                   </span>
                 </StyledTableCell>
-                <StyledTableCell align="left" style={{ width: "25%" }}>
+                {/* <StyledTableCell align="left" style={{ width: "25%" }}>
                   <AutoAwesomeMotionIcon style={{ width: "20px" }} /> &nbsp;
                   <span style={{ fontWeight: "bold", verticalAlign: "bottom" }}>
                     Category_id
                   </span>
-                </StyledTableCell>
+                </StyledTableCell> */}
 
                 <StyledTableCell align="left">
                   <CallToActionIcon />{" "}
@@ -345,13 +345,13 @@ function Postes() {
                           {item.description}
                         </StyledTableCell>
 
-                        <StyledTableCell
+                        {/* <StyledTableCell
                           component="th"
                           scope="row"
                           align="center"
                         >
                           {item.category.name}
-                        </StyledTableCell>
+                        </StyledTableCell> */}
 
                         <StyledTableCell align="left" style={{ padding: 0 }}>
                           <div className="button_table">

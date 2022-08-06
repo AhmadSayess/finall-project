@@ -79,6 +79,7 @@ export const Activities = () => {
       <div>
         <label for="cat">Category</label>
 
+
         <select name="pets" id="cat" onChange={getActivitiesByCategory}>
           <option value="ALL">ALL</option>
           {category.map((e) => (
@@ -87,6 +88,8 @@ export const Activities = () => {
             </option>
           ))}
         </select>
+
+
       </div>
       {activity &&
         activity.map((item, index) => {

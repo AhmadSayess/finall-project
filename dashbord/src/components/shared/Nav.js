@@ -72,13 +72,13 @@ function Nav() {
             <span className='ms-3'>Projects</span>
           </li>
         </NavLink>
-
+{/* 
         <NavLink style={({ isActive }) => (isActive ? { backgroundColor: 'var(--buttonhover1)', color: 'var(--textcolor1)' } : { backgroundColor: 'transparent' })} to='/dashboard/Aboutus'>
           <li data-aos-duration="1500" data-aos="fade-right"  style={{ backgroundColor: "inherit" }}>
             <InfoIcon className='icon' />
             <span className='ms-3'>About us</span>
           </li>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink style={({ isActive }) => (isActive ? { backgroundColor: 'var(--buttonhover1)', color: 'var(--textcolor1)' } : { backgroundColor: 'transparent' })} to='/dashboard/Messages'>
           <li data-aos-duration="1500" data-aos="fade-right"  style={{ backgroundColor: "inherit" }}>

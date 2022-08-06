@@ -79,7 +79,7 @@ export const Home = () => {
         </li>
       </div>
 
-      {/* Activities */}
+
       <RecommendedPost 
       
         post={post}

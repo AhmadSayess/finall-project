@@ -213,7 +213,9 @@ function Employees() {
                   {/*  for a input select */}
                   <div>
                     <FormControl sx={{ m: 0.1, width: 438 }}>
-                      <InputLabel id="demo-multiple-chip-label">Teams_id</InputLabel>
+                      <InputLabel id="demo-multiple-chip-label">
+                        Teams_id
+                      </InputLabel>
                       <Select
                         labelId="demo-multiple-chip-label"
                         id="demo-multiple-chip"
@@ -288,12 +290,12 @@ function Employees() {
                   </span>
                 </StyledTableCell>
 
-                {/* <StyledTableCell align="left" style={{ width: "25%" }}>
-                  <GroupsOutlinedIcon   style={{ width: "20px" }} /> &nbsp;
+                <StyledTableCell align="left" style={{ width: "25%" }}>
+                  <GroupsOutlinedIcon style={{ width: "20px" }} /> &nbsp;
                   <span style={{ fontWeight: "bold", verticalAlign: "bottom" }}>
                     Email
                   </span>
-                </StyledTableCell> */}
+                </StyledTableCell>
 
                 <StyledTableCell align="left" style={{ width: "25%" }}>
                   <PhoneAndroidIcon style={{ width: "20px" }} /> &nbsp;
@@ -302,18 +304,26 @@ function Employees() {
                   </span>
                 </StyledTableCell>
                 <StyledTableCell align="left" style={{ width: "25%" }}>
+                  <PhoneAndroidIcon style={{ width: "20px" }} /> &nbsp;
+                  <span style={{ fontWeight: "bold", verticalAlign: "bottom" }}>
+                  Address
+                  </span>
+                </StyledTableCell>
+
+                
+                <StyledTableCell align="left" style={{ width: "25%" }}>
                   <ConfirmationNumberIcon style={{ width: "20px" }} /> &nbsp;
                   <span style={{ fontWeight: "bold", verticalAlign: "bottom" }}>
                     role
                   </span>
                 </StyledTableCell>
 
-                <StyledTableCell align="left" style={{ width: "25%" }}>
+                {/* <StyledTableCell align="left" style={{ width: "25%" }}>
                   <GroupsOutlinedIcon style={{ width: "20px" }} /> &nbsp;
                   <span style={{ fontWeight: "bold", verticalAlign: "bottom" }}>
                     Team_id
                   </span>
-                </StyledTableCell>
+                </StyledTableCell> */}
 
                 <StyledTableCell align="left">
                   <CallToActionIcon />{" "}
@@ -341,12 +351,12 @@ function Employees() {
                           {item.name}
                         </StyledTableCell>
 
-                        {/* <StyledTableCell
-                  lign="left"
-                  style={{ paddingTop: "12px", paddingBottom: "12px" }}
-                >
-                  {item.email}
-                </StyledTableCell> */}
+                        <StyledTableCell
+                          lign="left"
+                          style={{ paddingTop: "12px", paddingBottom: "12px" }}
+                        >
+                          {item.email}
+                        </StyledTableCell>
 
                         <StyledTableCell
                           component="th"
@@ -362,8 +372,8 @@ function Employees() {
                           scope="row"
                           align="center"
                         >
-                          {/* leader */}
-                          {item.role}
+                          {/* 71554747 */}
+                          {item.address}
                         </StyledTableCell>
 
                         <StyledTableCell
@@ -371,9 +381,18 @@ function Employees() {
                           scope="row"
                           align="center"
                         >
-                          {/* team 1 */}
-                          {item.teams.name}
+                          {/* leader */}
+                          {item.role}
                         </StyledTableCell>
+
+                        {/* <StyledTableCell
+                          component="th"
+                          scope="row"
+                          align="center"
+                        >
+                    
+                          {item.teams.name}
+                        </StyledTableCell> */}
 
                         <StyledTableCell align="left" style={{ padding: 0 }}>
                           <div className="button_table">

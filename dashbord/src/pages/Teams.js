@@ -161,7 +161,7 @@ function Teams() {
         <Buttons
           buttonStyle="btn--success--solid"
           buttonSize="btn-lg"
-          text={"Add  Postes"}
+          text={"Add  Team"}
           onClick={handleClickOpen}
         />
         <div>
@@ -182,21 +182,10 @@ function Teams() {
                   noValidate
                   autoComplete="off"
                 >
-                  {/* <TextField
-                    name="upload-photo"
-                    type="file"
-                    variant="standard"
-                    multiple
-                  /> */}
 
                   <TextField
                     id="standard-basic"
-                    label=" Add  your Teams"
-                    variant="standard"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Enter your description"
+                    label=" Add  your Team"
                     variant="standard"
                   />
 
