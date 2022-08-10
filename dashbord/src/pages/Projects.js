@@ -101,7 +101,23 @@ function Projects() {
       });
   };
   ////  end to add a category ///
+  ////  satrt to edit a category ///
+  const [edit, setEdit] = useState({ name: "", id: "" }); /// state for the to  add a new gategory ///
 
+  const HandelEditProject = (e) => {
+    e.preventDefault();
+    const id1 = edit.id;
+    axios
+      .put("http://localhost:5000/api/projects/" + id1, { name: edit.name })
+      .then((res) => {
+        setOpen1(false);
+        getAllProjects();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to edit a category ///
   ////  satrt to delet a project ///
   const Handeldeleteproject = (id) => {
     axios
@@ -124,6 +140,15 @@ function Projects() {
   const handleClose = () => {
     setOpen(false);
     setName("");
+  };
+  const [open1, setOpen1] = React.useState(false);
+  const handleClickOpen1 = (id, name) => {
+    setOpen1(true);
+    setEdit({ name, id });
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
+    setEdit("");
   };
   //// for a popup ///
 
@@ -186,13 +211,13 @@ function Projects() {
           </Dialog>
           {/* for the popup edit  */}
           <Dialog
-            open={open}
+            open={open1}
             TransitionComponent={Transition}
             keepMounted
-            onClose={handleClose}
+            onClose={handleClose1}
             aria-describedby="alert-dialog-slide-description"
           >
-            <form onSubmit={''}>
+            <form onSubmit={HandelEditProject}>
               <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                   <Box
@@ -205,10 +230,12 @@ function Projects() {
                   >
                     <TextField
                       id="standard-basic"
-                      label="Add A New Project "
+                      label="Edit Your Project "
                       variant="standard"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      value={edit.name}
+                      onChange={(e) =>
+                        setEdit({ ...edit, name: e.target.value })
+                      }
                     />
                   </Box>
                 </DialogContentText>
@@ -218,12 +245,12 @@ function Projects() {
                   buttonStyle="btn--danger--solid"
                   buttonSize="btn-lg"
                   text={"Cancel "}
-                  onClick={handleClose}
+                  onClick={handleClose1}
                 />
                 <Buttons
                   buttonStyle="btn--success--solid"
                   buttonSize="btn-lg"
-                  text={"Save Project"}
+                  text={"edit Project"}
                   type="submit"
                 />
               </DialogActions>
@@ -276,13 +303,15 @@ function Projects() {
 
                         <StyledTableCell align="left" style={{ padding: 0 }}>
                           <div className="button_table">
-                            {/* <Link to={`/dashboard/Projects/${''}`}> */}
                             <Buttons
                               buttonStyle="btn--success--solid"
                               buttonSize="btn-md"
                               icon={<EditIcon />}
+                              onClick={() =>
+                                handleClickOpen1(item._id, item.name)
+                              }
                             />
-                            {/* </Link> */}
+
                             <Buttons
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"

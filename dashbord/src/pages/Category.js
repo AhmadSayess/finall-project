@@ -105,6 +105,7 @@ export const Category = () => {
   };
 
   ////  end to add a category ///
+  ////  satrt to edit a category ///
 
   const HandelEditCategory = (e) => {
     e.preventDefault();
@@ -119,6 +120,7 @@ export const Category = () => {
         console.log(err);
       });
   };
+  ////  end to edit a category ///
 
   ////  satrt to delet a category ///
   const Handeldeletecategory = (id) => {
@@ -151,9 +153,7 @@ export const Category = () => {
   };
   const handleClose1 = () => {
     setOpen1(false);
-    setEdit('');  
-
-
+    setEdit("");
   };
   //// for a popup ///
   return (
@@ -233,7 +233,7 @@ export const Category = () => {
                   >
                     <TextField
                       id="standard-basic"
-                      label="Edit Category"
+                      label="Edit Your Category"
                       variant="standard"
                       value={edit.name}
                       onChange={(e) =>
@@ -299,12 +299,10 @@ export const Category = () => {
                           lign="left"
                           style={{ paddingTop: "12px", paddingBottom: "12px" }}
                         >
-                          {/* twi in the feiled */}
                           {item.name}
                         </StyledTableCell>
                         <StyledTableCell align="left" style={{ padding: 0 }}>
                           <div className="button_table">
-                            {/* <Link to={`/dashboard/Projects/${''}`}> */}
                             <Buttons
                               buttonStyle="btn--success--solid"
                               buttonSize="btn-md"
@@ -313,8 +311,6 @@ export const Category = () => {
                                 handleClickOpen1(item._id, item.name)
                               }
                             />
-                            {/* </Link> */}
-
                             <Buttons
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
