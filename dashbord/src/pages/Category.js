@@ -62,12 +62,13 @@ export const Category = () => {
 
   //// to get all category ///
   const getAllcategory = async () => {
+    // e.preventDefault();
+
     await axios
       .get("http://localhost:5000/api/category")
       .then((res) => {
         if (res.status === 200) {
           setCategory(res.data.response);
-          // console.log(res.data.response);
           setLoading(false);
         }
       })
@@ -84,27 +85,54 @@ export const Category = () => {
 
   //// satart to add a category ///
   const [name, setName] = useState(""); /// state for the to  add a new gategory ///
+  const [edit, setEdit] = useState({ name: "", id: "" }); /// state for the to  add a new gategory ///
   const data = {
     name: name,
   };
   const Handeladdcategory = (e) => {
-    //.preventDefault();
-    e.persist();
+    e.preventDefault();
     axios
       .post("http://localhost:5000/api/category", data)
       .then((res) => {
-        setName(res.data.name);
+        setName("");
+        setOpen(false);
         getAllcategory();
         // toast.success("Category  added  Successfully")
-
-        console.log(res.data.name);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   ////  end to add a category ///
 
+  const HandelEditCategory = (e) => {
+    e.preventDefault();
+    const id1 = edit.id;
+    axios
+      .put("http://localhost:5000/api/category/" + id1, { name: edit.name })
+      .then((res) => {
+        setOpen1(false);
+        getAllcategory();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  ////  satrt to delet a category ///
+  const Handeldeletecategory = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/category/${id}`)
+      .then((res) => {
+        setLoading(true);
+        getAllcategory();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to delet a category ///
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
@@ -113,6 +141,19 @@ export const Category = () => {
   };
   const handleClose = () => {
     setOpen(false);
+    setName("");
+  };
+
+  const [open1, setOpen1] = React.useState(false);
+  const handleClickOpen1 = (id, name) => {
+    setOpen1(true);
+    setEdit({ name, id });
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
+    setEdit('');  
+
+
   };
   //// for a popup ///
   return (
@@ -166,7 +207,53 @@ export const Category = () => {
                 <Buttons
                   buttonStyle="btn--success--solid"
                   buttonSize="btn-lg"
-                  text={"Save Project"}
+                  text={"Save category"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
+          </Dialog>
+          <Dialog
+            open={open1}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose1}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <form onSubmit={HandelEditCategory}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label="Edit Category"
+                      variant="standard"
+                      value={edit.name}
+                      onChange={(e) =>
+                        setEdit({ ...edit, name: e.target.value })
+                      }
+                    />
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose1}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"edit Category"}
                   type="submit"
                 />
               </DialogActions>
@@ -222,12 +309,17 @@ export const Category = () => {
                               buttonStyle="btn--success--solid"
                               buttonSize="btn-md"
                               icon={<EditIcon />}
+                              onClick={() =>
+                                handleClickOpen1(item._id, item.name)
+                              }
                             />
                             {/* </Link> */}
+
                             <Buttons
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
                               icon={<DeleteOutlineIcon />}
+                              onClick={() => Handeldeletecategory(item._id)}
                             />
                           </div>
                         </StyledTableCell>

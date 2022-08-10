@@ -82,20 +82,6 @@ const MenuProps = {
     },
   },
 };
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -106,11 +92,15 @@ function getStyles(name, personName, theme) {
 }
 //// for a input select ///
 function Employees() {
-  //// for a input select ///
+  ////  start for a input select ///
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
+
+    let pro = teams.filter(e => e.name === event.target.value[0]);
+    setEmployee(pro[0]._id)
+
     const {
       target: { value },
     } = event;
@@ -119,10 +109,47 @@ function Employees() {
       typeof value === "string" ? value.split(",") : value
     );
   };
-  //// for a input select ///
+  ////end for a input select ///
 
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState([]); // to get all employees //
   const [loading, setLoading] = useState(false);
+  //// satart to add a employees ///
+  const [name, setName] = useState(""); // for the input to add employees //
+  const [email, setEmail] = useState(""); // for the input to add employees //
+  const [phone, setPhone] = useState(""); // for the input to add employees //
+  const [address, setAddress] = useState(""); // for the input to add employees //
+  const [role, setRole] = useState(""); // for the input to add employees //
+  const [employee, setEmployee] = useState(""); // for the input select when i add a employees to put for a team//
+
+  const data = {
+    name: name,
+    email: email,
+    phone: phone,
+    address: address,
+    role: role,
+    teams:employee
+  };
+  // console.log(data);
+  const Handeladdemployees = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/api/employes", data)
+      .then((res) => {
+        setName("");
+        setEmail("");
+        setPhone("");
+        setAddress("");
+        setRole("");
+        setOpen(false);
+        getAllEmployees();
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  ////  end to add a employees ///
 
   const getAllEmployees = async () => {
     await axios
@@ -143,6 +170,40 @@ function Employees() {
     getAllEmployees();
   }, []);
 
+  ////  satrt to delet a empolyee ///
+  const Handeldeleteemloyee = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/employes/${id}`)
+      .then((res) => {
+        setLoading(true);
+        getAllEmployees();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to delet a empolyee ///
+
+  const [teams, setTeams] = useState([]); //// to get all teams ///
+  //// to get all teams ///
+  const getAllTeams = async () => {
+    await axios
+      .get("http://localhost:5000/api/teams")
+      .then((res) => {
+        if (res.status === 200) {
+          setTeams(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllTeams();
+  }, []);
+  //// to get all teams ///
+
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
 
@@ -158,7 +219,7 @@ function Employees() {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a employees" />
+        <Search placeholder="Search for a employees" data />
         {/* for a popup */}
         <Buttons
           buttonStyle="btn--success--solid"
@@ -174,101 +235,119 @@ function Employees() {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { m: 1.5, width: "49ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    id="standard-basic"
-                    label="Add Her Name "
-                    variant="standard"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Add Her Email  "
-                    variant="standard"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Add Her Phone  "
-                    variant="standard"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Add Her Address  "
-                    variant="standard"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Add Her Role  "
-                    variant="standard"
-                  />
 
-                  {/*  for a input select */}
-                  <div>
-                    <FormControl sx={{ m: 0.1, width: 438 }}>
-                      <InputLabel id="demo-multiple-chip-label">
-                        Teams_id
-                      </InputLabel>
-                      <Select
-                        labelId="demo-multiple-chip-label"
-                        id="demo-multiple-chip"
-                        multiple
-                        value={personName}
-                        onChange={handleChange}
-                        input={
-                          <OutlinedInput
-                            id="select-multiple-chip"
-                            label="Teams_id"
-                          />
-                        }
-                        renderValue={(selected) => (
-                          <Box
-                            sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}
-                          >
-                            {selected.map((value) => (
-                              <Chip key={value} label={value} />
-                            ))}
-                          </Box>
-                        )}
-                        MenuProps={MenuProps}
-                      >
-                        {names.map((name) => (
-                          <MenuItem
-                            key={name}
-                            value={name}
-                            style={getStyles(name, personName, theme)}
-                          >
-                            {name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
-                  {/* END for a input select */}
-                </Box>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Buttons
-                buttonStyle="btn--danger--solid"
-                buttonSize="btn-lg"
-                text={"Cancel "}
-                onClick={handleClose}
-              />
-              <Buttons
-                buttonStyle="btn--success--solid"
-                buttonSize="btn-lg"
-                text={"Save Project"}
-                onClick={handleClose}
-              />
-            </DialogActions>
+            <form onSubmit={Handeladdemployees}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Name "
+                      variant="standard"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Email  "
+                      variant="standard"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Phone  "
+                      variant="standard"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Address  "
+                      variant="standard"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Role  "
+                      variant="standard"
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                    />
+
+                    {/*  for a input select */}
+                    <div>
+                      <FormControl sx={{ m: 0.1, width: 438 }}>
+                        <InputLabel id="demo-multiple-chip-label">
+                          All Teams
+                        </InputLabel>
+                        <Select
+                          labelId="demo-multiple-chip-label"
+                          id="demo-multiple-chip"
+                          multiple
+                          value={personName}
+                          onChange={handleChange}
+                          input={
+                            <OutlinedInput
+                              id="select-multiple-chip"
+                              label="All Teams"
+                            />
+                          }
+                          renderValue={(selected) => (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                              }}
+                            >
+                              {selected.map((value) => (
+                                <Chip key={value} label={value} />
+                              ))}
+                            </Box>
+                          )}
+                          MenuProps={MenuProps}
+                        >
+                          {teams.map((tem) => (
+                            <MenuItem
+                              key={tem._id}
+                              value={tem.name}
+                              style={getStyles(tem.name, personName, theme)}
+                            >
+                              {tem.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    {/* END for a input select */}
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save employee"}
+                  type="submit"
+
+                />
+              </DialogActions>
+            </form>
           </Dialog>
         </div>
 
@@ -306,11 +385,10 @@ function Employees() {
                 <StyledTableCell align="left" style={{ width: "25%" }}>
                   <PhoneAndroidIcon style={{ width: "20px" }} /> &nbsp;
                   <span style={{ fontWeight: "bold", verticalAlign: "bottom" }}>
-                  Address
+                    Address
                   </span>
                 </StyledTableCell>
 
-                
                 <StyledTableCell align="left" style={{ width: "25%" }}>
                   <ConfirmationNumberIcon style={{ width: "20px" }} /> &nbsp;
                   <span style={{ fontWeight: "bold", verticalAlign: "bottom" }}>
@@ -340,7 +418,7 @@ function Employees() {
               <TableBody>
                 {employees &&
                   employees.map((item, index) => {
-                    console.log("itemm", item);
+                    // console.log("emloyee", item);
                     return (
                       <StyledTableRow key={index} className="main_row">
                         <StyledTableCell
@@ -407,6 +485,7 @@ function Employees() {
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
                               icon={<DeleteOutlineIcon />}
+                              onClick={() => Handeldeleteemloyee(item._id)}
                             />
                           </div>
                         </StyledTableCell>

@@ -49,6 +49,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 //// for a popup ///
 
+
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#344f7c",
@@ -107,6 +109,37 @@ function getStyles(name, personName, theme) {
 //// for a input select ///
 
 function Postes() {
+
+//// to get all category ///
+const [category, setCategory] = useState([]); /// to get all gategory ///
+
+const getAllcategory = async () => {
+  // e.preventDefault();
+  await axios
+    .get("http://localhost:5000/api/category")
+    .then((res) => {
+      if (res.status === 200) {
+        setCategory(res.data.response);
+        console.log(res.data.response);
+        // setLoading(false);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+useEffect(() => {
+  // setLoading(true);
+  getAllcategory();
+}, []);
+
+
+
+
+
+
+
   //// for a input select ///
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
@@ -143,6 +176,24 @@ function Postes() {
     setLoading(true);
     getAllPostes();
   }, []);
+
+
+
+    ////  satrt to delet a post ///
+    const Handeldeleteposte = (id) => {
+      
+        axios.delete(`http://localhost:5000/api/post/${id}`)
+        .then((res) => {
+          setLoading(true);
+          getAllPostes();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+       
+    
+    };
+    ////  end to delet a post ///
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
@@ -230,13 +281,13 @@ function Postes() {
                         )}
                         MenuProps={MenuProps}
                       >
-                        {names.map((name) => (
+                        {category.map((cat) => (
                           <MenuItem
-                            key={name}
-                            value={name}
-                            style={getStyles(name, personName, theme)}
+                            key={cat._id}
+                            value={cat.name}
+                            style={getStyles(cat.name, personName, theme)}
                           >
-                            {name}
+                            {cat.name}
                           </MenuItem>
                         ))}
                       </Select>
@@ -366,6 +417,8 @@ function Postes() {
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
                               icon={<DeleteOutlineIcon />}
+                              onClick={() => Handeldeleteposte(item._id)}
+
                             />
                           </div>
                         </StyledTableCell>

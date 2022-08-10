@@ -87,12 +87,12 @@ function Projects() {
     name: name,
   };
   const HandeladdProject = (e) => {
-    //e.preventDefault();
-    e.persist();
+    e.preventDefault();
     axios
       .post("http://localhost:5000/api/projects/", data)
       .then((res) => {
-        setName(res.data.name);
+        setName("");
+        setOpen(false);
         getAllProjects();
         console.log(res.data.name);
       })
@@ -102,15 +102,28 @@ function Projects() {
   };
   ////  end to add a category ///
 
+  ////  satrt to delet a project ///
+  const Handeldeleteproject = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/projects/${id}`)
+      .then((res) => {
+        setLoading(true);
+        getAllProjects();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to delet a project ///
+
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
+    setName("");
   };
   //// for a popup ///
 
@@ -171,6 +184,52 @@ function Projects() {
               </DialogActions>
             </form>
           </Dialog>
+          {/* for the popup edit  */}
+          <Dialog
+            open={open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <form onSubmit={''}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label="Add A New Project "
+                      variant="standard"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save Project"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
+          </Dialog>
+          {/* for the popup edit  */}
         </div>
 
         {/* for a popup */}
@@ -228,6 +287,7 @@ function Projects() {
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
                               icon={<DeleteOutlineIcon />}
+                              onClick={() => Handeldeleteproject(item._id)}
                             />
                           </div>
                         </StyledTableCell>

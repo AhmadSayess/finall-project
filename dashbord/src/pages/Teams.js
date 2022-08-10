@@ -69,40 +69,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-//// for a input select ///
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-//// for a input select ///
 
 function Teams() {
   //// for a input select ///
@@ -110,20 +76,30 @@ function Teams() {
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
+
+
+    let pro = projects.filter(e => e.name === event.target.value[0]);
+    console.log({pro});
+    console.log(event.target);
+    setProject(pro[0]._id)
+
+
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setPersonName(  
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
   //// for a input select ///
 
-  const [Teams, setTeams] = useState([]);
+  const [Teams, setTeams] = useState([]); //// to get all teams ///
   const [loading, setLoading] = useState(false);
 
+  //// to get all teams ///
   const getAllTeams = async () => {
+ 
     await axios
       .get("http://localhost:5000/api/teams")
       .then((res) => {
@@ -141,6 +117,64 @@ function Teams() {
     setLoading(true);
     getAllTeams();
   }, []);
+  //// to get all teams ///
+
+  //// for to add a admin ///
+  const [name, setName] = useState(""); /// state for the input  name  teams///
+  const [project, setProject] = useState(""); /// state for the input  name  teams///
+  const data = {
+    name,
+    projects: project,
+  };
+  // console.log({data});
+  const Handeladdteam =  (e) => {
+    e.preventDefault();
+     axios
+      .post("http://localhost:5000/api/teams", data)
+      .then((res) => {
+        setName("");
+        setOpen(false);
+        getAllTeams();
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  //// for to add a admin ///
+
+  ////  satrt to delet a teams ///
+  const Handeldeleteteam =  (id) => {
+    axios
+      .delete(`http://localhost:5000/api/teams/${id}`)
+      .then((res) => {
+        setLoading(true);
+        getAllTeams();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to delet a teams ///
+
+  ////  get  all projects to the select input ///
+  const [projects, setProjects] = useState([]);
+  const getAllProjects = async () => {
+    await axios
+      .get("http://localhost:5000/api/projects")
+      .then((res) => {
+        if (res.status === 200) {
+          setProjects(res.data.response);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getAllProjects();
+  }, []);
+  ////  get  all projects to the select input ///
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
@@ -151,8 +185,33 @@ function Teams() {
 
   const handleClose = () => {
     setOpen(false);
+    setName("");
   };
   //// for a popup ///
+
+
+
+//// for a input select ///
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+//// for a input select ///
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
@@ -172,82 +231,92 @@ function Teams() {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { m: 1.5, width: "49ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
+            <form onSubmit={Handeladdteam}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label=" Add  your Team"
+                      variant="standard"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
 
-                  <TextField
-                    id="standard-basic"
-                    label=" Add  your Team"
-                    variant="standard"
-                  />
+                    {/*  for a input select */}
+                    <div>
+                      <FormControl sx={{ m: 0.1, width: 442 }}>
+                        <InputLabel id="demo-multiple-chip-label">
+                          ALL Projects
+                        </InputLabel>
+                        <Select
+                          labelId="demo-multiple-chip-label"
+                          id="demo-multiple-chip"
+                          multiple
+                          value={personName}
+                          onChange={handleChange}
+                          input={
+                            <OutlinedInput
+                              id="select-multiple-chip"
+                              label="ALL Projects"
+                            />
+                          }
+                          renderValue={(selected) => (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                              }}
+                            >
+                              {selected.map((value) => (
+                                <Chip key={value} label={value} />
+                              ))}
+                            </Box>
+                          )}
+                          MenuProps={MenuProps}
+                        >
+                          {projects.map((proj) => (
+                            <MenuItem
+                              key={proj._id}
+                              value={proj.name}
+                              style={getStyles(proj.name, personName, theme)
+                              }
+                            >
+                              {proj.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    {/* END for a input select */}
 
-                  {/*  for a input select */}
-                  <div>
-                    <FormControl sx={{ m: 0.1, width: 442 }}>
-                      <InputLabel id="demo-multiple-chip-label">ALL</InputLabel>
-                      <Select
-                        labelId="demo-multiple-chip-label"
-                        id="demo-multiple-chip"
-                        multiple
-                        value={personName}
-                        onChange={handleChange}
-                        input={
-                          <OutlinedInput
-                            id="select-multiple-chip"
-                            label="All"
-                          />
-                        }
-                        renderValue={(selected) => (
-                          <Box
-                            sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}
-                          >
-                            {selected.map((value) => (
-                              <Chip key={value} label={value} />
-                            ))}
-                          </Box>
-                        )}
-                        MenuProps={MenuProps}
-                      >
-                        {names.map((name) => (
-                          <MenuItem
-                            key={name}
-                            value={name}
-                            style={getStyles(name, personName, theme)}
-                          >
-                            {name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
-                  {/* END for a input select */}
-
-                  {/* END for the input in the popup */}
-                </Box>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Buttons
-                buttonStyle="btn--danger--solid"
-                buttonSize="btn-lg"
-                text={"Cancel "}
-                onClick={handleClose}
-              />
-              <Buttons
-                buttonStyle="btn--success--solid"
-                buttonSize="btn-lg"
-                text={"Save Poste"}
-                onClick={handleClose}
-              />
-            </DialogActions>
+                    {/* END for the input in the popup */}
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save team"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
           </Dialog>
         </div>
 
@@ -290,7 +359,7 @@ function Teams() {
               <TableBody>
                 {Teams &&
                   Teams.map((item, index) => {
-                    console.log("itemm", item);
+                    // console.log("itemm", item);
                     return (
                       <StyledTableRow key={index} className="main_row">
                         <StyledTableCell
@@ -321,6 +390,7 @@ function Teams() {
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
                               icon={<DeleteOutlineIcon />}
+                              onClick={() => Handeldeleteteam(item._id)}
                             />
                           </div>
                         </StyledTableCell>

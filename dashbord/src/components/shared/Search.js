@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AOS from "aos";
 
 function Search(props) {
+  const {placeholder, onChange} = props
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -17,8 +18,8 @@ function Search(props) {
         <input
           type="text"
           className="form-control"
-          placeholder={props.placeholder}
-          onChange={props.onChange}
+          placeholder={placeholder}
+          onChange={onChange}
         />
       </div>
     </div>

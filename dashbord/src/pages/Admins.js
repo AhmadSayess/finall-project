@@ -61,7 +61,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function Admins() {
   // toast.configure();
-  const [admin, setAdmin] = useState([]);
+  const [admin, setAdmin] = useState([]); /// to get all admin ///
   const [loading, setLoading] = useState(false);
 
   const getAllAdmin = async () => {
@@ -85,7 +85,7 @@ function Admins() {
     setLoading(true);
   }, []);
 
-  //// for a add a admin ///
+  //// for to add a admin ///
   const [fullname, setFullname] = useState(""); /// state for the input full name ///
   const [email, setEmail] = useState(""); /// state for the input email///
   const [password, setPassword] = useState(""); /// state for the input password ///
@@ -95,37 +95,51 @@ function Admins() {
     email: email,
     password: password,
   };
-  const Handeladdadmin = async (e) => {
-    // e.preventDefault();
-    // e.persist();
-    await axios
+  const Handeladdadmin = (e) => {
+    e.preventDefault();
+    axios
       .post("http://localhost:5000/api/admin/register", data)
       .then((res) => {
-        setFullname(res.data.fullname);
-        setEmail(res.data.email);
-        setPassword(res.data.password);
+        setFullname("");
+        setEmail("");
+        setPassword("");
+        setOpen(false);
         getAllAdmin();
-        // toast.success("Admin added  Successfully")
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  //// for to add a admin ///
 
-  //// for a add a admin ///
+  ////  satrt to delet a admins ///
+  const Handeldeleteadmin = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/admin/${id}`)
+      .then((res) => {
+        setLoading(true);
+        getAllAdmin();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to delet a admins ///
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
+    setFullname("");
+    setEmail("");
+    setPassword("");
   };
   //// for a popup ///
+
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
@@ -197,7 +211,7 @@ function Admins() {
                   buttonStyle="btn--success--solid"
                   buttonSize="btn-lg"
                   text={"Save Admin"}
-                  type='submit'
+                  type="submit"
                 />
               </DialogActions>
             </form>
@@ -288,6 +302,7 @@ function Admins() {
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
                               icon={<DeleteOutlineIcon />}
+                              onClick={() => Handeldeleteadmin(item._id)}
                             />
                           </div>
                         </StyledTableCell>
