@@ -62,8 +62,6 @@ export const Category = () => {
 
   //// to get all category ///
   const getAllcategory = async () => {
-    // e.preventDefault();
-
     await axios
       .get("http://localhost:5000/api/category")
       .then((res) => {

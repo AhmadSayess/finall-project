@@ -124,6 +124,7 @@ function Teams() {
       .post("http://localhost:5000/api/teams", data)
       .then((res) => {
         setName("");
+        setProject('')
         setOpen(false);
         getAllTeams();
         console.log(res.data);
@@ -134,10 +135,7 @@ function Teams() {
   };
   //// for to add a admin ///
   ////  satrt to edit a category ///
-  const [edit, setEdit] = useState({
-    open: false,
-    values: { name: "", project_id: "", id: "" },
-  });
+  const [edit, setEdit] = useState({  values: { name: "", project_id: "", id: "" }, });
   const HandelEditTeam = (e) => {
     e.preventDefault();
     const id1 = edit.values.id;
@@ -202,6 +200,7 @@ function Teams() {
   const handleClose = () => {
     setOpen(false);
     setName("");
+    setProject('');
   };
 
   //// for a popup ///
@@ -227,6 +226,7 @@ function Teams() {
     };
   }
   //// for a input select ///
+
   const handleClickOpen1 = (id, name, projects) => {
     const { _id } = projects;
     setEdit({ open: true, values: { name, project_id: _id, id } });
@@ -234,6 +234,7 @@ function Teams() {
   const handleClose1 = () => {
     setEdit({ open: false, values: { name: "", project_id: "", id: "" } });
   };
+
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
@@ -387,8 +388,7 @@ function Teams() {
                             setEdit({
                               ...edit,
                               values: {
-                                ...edit.values,
-                                project_id: e.target.value,
+                                ...edit.values, project_id: e.target.value,
                               },
                             })
                           }

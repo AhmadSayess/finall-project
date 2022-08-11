@@ -141,6 +141,7 @@ function Projects() {
     setOpen(false);
     setName("");
   };
+  
   const [open1, setOpen1] = React.useState(false);
   const handleClickOpen1 = (id, name) => {
     setOpen1(true);

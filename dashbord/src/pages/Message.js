@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Loading from "../components/shared/Loading";
 import Search from "../components/shared/Search";
 import Buttons from "../components/shared/Buttons";
 import { styled } from "@mui/material/styles";
@@ -12,8 +14,8 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CallToActionIcon from "@mui/icons-material/CallToAction";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import AttachEmailIcon from '@mui/icons-material/AttachEmail';
-import MessageIcon from '@mui/icons-material/Message';
+import AttachEmailIcon from "@mui/icons-material/AttachEmail";
+import MessageIcon from "@mui/icons-material/Message";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,15 +40,48 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const Message = () => {
+  const [messages, setMessages] = useState([]); /// to get all messages ///
+  const [loading, setLoading] = useState(false);
+
+  //// to get all category ///
+  const getAllMessages = async () => {
+    await axios
+      .get("http://localhost:5000/api/messages")
+      .then((res) => {
+        if (res.status === 200) {
+          setMessages(res.data.response);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getAllMessages();
+  }, []);
+  //// to get all category ///
+
+    ////  satrt to delet a category ///
+    const HandeldeleteMessages = (id) => {
+      axios
+        .delete(`http://localhost:5000/api/messages/${id}`)
+        .then((res) => {
+          setLoading(true);
+          getAllMessages();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    ////  end to delet a category ///
+
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
         <Search placeholder="Search for a messages" />
-        {/* <Buttons
-        buttonStyle="btn--success--solid"
-        buttonSize="btn-lg"
-        text={"Add Employees"}
-      /> */}
       </div>
 
       <div
@@ -92,46 +127,66 @@ export const Message = () => {
                 </StyledTableCell>
               </TableRow>
             </TableHead>
+            {loading ? (
+              <Loading />
+            ) : (
+              <TableBody>
+                {messages &&
+                  messages.map((item, index) => {
+                    return (
+                      <StyledTableRow key={index} className="main_row">
+                        <StyledTableCell
+                          lign="left"
+                          style={{ paddingTop: "12px", paddingBottom: "12px" }}
+                        >
+                          {item.name}
+                        </StyledTableCell>
 
-            <TableBody>
-              <StyledTableRow className="main_row">
-                <StyledTableCell
-                  lign="left"
-                  style={{ paddingTop: "12px", paddingBottom: "12px" }}
-                >
-                  ahmad
-                </StyledTableCell>
+                        <StyledTableCell
+                          component="th"
+                          scope="row"
+                          align="center"
+                        >
+                         {item.email}
+                        </StyledTableCell>
 
-                <StyledTableCell component="th" scope="row" align="center">
-                  ahmad@gmail.com
-                </StyledTableCell>
+                        <StyledTableCell
+                          component="th"
+                          scope="row"
+                          align="center"
+                        >
+                        {item.phone}
+                        </StyledTableCell>
 
-                <StyledTableCell component="th" scope="row" align="center">
-                  71554747
-                </StyledTableCell>
+                        <StyledTableCell
+                          component="th"
+                          scope="row"
+                          align="center"
+                        >
+                          {item.messages}
+                        </StyledTableCell>
 
-                <StyledTableCell component="th" scope="row" align="center">
-                  helo helo helo
-                </StyledTableCell>
+                        <StyledTableCell align="left" style={{ padding: 0 }}>
+                          <div className="button_table">
+                            <Buttons
+                              buttonStyle="btn--danger--solid"
+                              buttonSize="btn-md"
+                              icon={<DeleteOutlineIcon />}
+                              onClick={() => HandeldeleteMessages(item._id)}
 
-                <StyledTableCell align="left" style={{ padding: 0 }}>
-                  <div className="button_table">
-                    <Buttons
-                      buttonStyle="btn--danger--solid"
-                      buttonSize="btn-md"
-                      icon={<DeleteOutlineIcon />}
-                    />
-                    {/* <Link to={`/dashboard/Projects/${''}`}> */}
-                    <Buttons
-                      buttonStyle="btn--success--solid"
-                      buttonSize="btn-md"
-                      // icon={<EditIcon />}
-                    />
-                    {/* </Link> */}
-                  </div>
-                </StyledTableCell>
-              </StyledTableRow>
-            </TableBody>
+                            />
+                            <Buttons
+                              buttonStyle="btn--success--solid"
+                              buttonSize="btn-md"
+                              // icon={<EditIcon />}
+                            />
+                          </div>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })}
+              </TableBody>
+            )}
           </Table>
         </TableContainer>
       </div>

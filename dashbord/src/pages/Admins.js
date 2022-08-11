@@ -138,7 +138,34 @@ function Admins() {
     setEmail("");
     setPassword("");
   };
+
+  const [open1, setOpen1] = React.useState(false);
+  const handleClickOpen1 = (id, fullname , email ,password) => {
+    setOpen1(true);
+    setEdit({ fullname, email, password ,  id });
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
+    setEdit("");
+  };
   //// for a popup ///
+    ////  satrt to edit a category ///
+    const [edit, setEdit] = useState({ fullname: "", email:"" ,password:"", id: "" }); /// state for the to  add a new gategory ///
+
+    const HandelEditAdmin = (e) => {
+      e.preventDefault();
+      const id1 = edit.id;
+      axios
+        .put("http://localhost:5000/api/admin/" + id1, { fullname: edit.fullname , email: edit.email,   password: edit.password })
+        .then((res) => {
+          setOpen1(false);
+          getAllAdmin();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    ////  end to edit a category ///
 
   return (
     <div className="projects">
@@ -216,6 +243,80 @@ function Admins() {
               </DialogActions>
             </form>
           </Dialog>
+          {/* for the edit popup */}
+
+          <Dialog
+            open={open1}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose1}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <form onSubmit={HandelEditAdmin}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    {/* for the input in the popup */}
+                    <TextField
+                      id="standard-basic"
+                      label="Enter your full name"
+                      variant="standard"
+                      value={edit.fullname}
+                      onChange={(e) =>
+                        setEdit({ ...edit, fullname: e.target.value })
+                      }
+                    />
+
+                    <TextField
+                      id="standard-basic"
+                      label="Enter your email"
+                      variant="standard"
+                      value={edit.email}
+                      onChange={(e) =>
+                        setEdit({ ...edit, email: e.target.value })
+                      }
+                    />
+
+                    <TextField
+                      id="filled-password-input"
+                      label="Enter your password"
+                      type="password"
+                      autoComplete="current-password"
+                      variant="standard"
+                      value={edit.password}
+                      onChange={(e) =>
+                        setEdit({ ...edit, password: e.target.value })
+                      }
+                    />
+                    {/* END for the input in the popup */}
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose1}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"edit Admin"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
+          </Dialog>
+          {/* for the edit popup */}
+
         </div>
 
         {/* END for a popup */}
@@ -278,7 +379,7 @@ function Admins() {
                           lign="left"
                           style={{ paddingTop: "12px", paddingBottom: "12px" }}
                         >
-                          {/* Ahmad sayess */} {item.fullname}
+                          {item.fullname}
                         </StyledTableCell>
 
                         <StyledTableCell
@@ -291,13 +392,14 @@ function Admins() {
 
                         <StyledTableCell align="left" style={{ padding: 0 }}>
                           <div className="button_table">
-                            {/* <Link to={`/dashboard/Projects/${''}`}> */}
                             <Buttons
                               buttonStyle="btn--success--solid"
                               buttonSize="btn-md"
                               icon={<EditIcon />}
+                              onClick={() =>
+                                handleClickOpen1(item._id, item.fullname , item.email , item.password)
+                              }
                             />
-                            {/* </Link> */}
                             <Buttons
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"

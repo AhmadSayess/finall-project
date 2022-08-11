@@ -90,6 +90,7 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
+
 //// for a input select ///
 function Employees() {
   ////  start for a input select ///
@@ -97,9 +98,8 @@ function Employees() {
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
-
-    let pro = teams.filter(e => e.name === event.target.value[0]);
-    setEmployee(pro[0]._id)
+    let pro = teams.filter((e) => e.name === event.target.value[0]);
+    setEmployee(pro[0]._id);
 
     const {
       target: { value },
@@ -127,7 +127,7 @@ function Employees() {
     phone: phone,
     address: address,
     role: role,
-    teams:employee
+    teams: employee,
   };
   // console.log(data);
   const Handeladdemployees = (e) => {
@@ -170,6 +170,10 @@ function Employees() {
     getAllEmployees();
   }, []);
 
+  ////  satrt to edit a employees ///
+
+  ////  end to edit a employees ///
+
   ////  satrt to delet a empolyee ///
   const Handeldeleteemloyee = (id) => {
     axios
@@ -204,17 +208,67 @@ function Employees() {
   }, []);
   //// to get all teams ///
 
+  ////  satrt to edit a employee ///
+  const [edit, setEdit] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    role: "",
+    teams_id: "",
+    id: "",
+  }); /// state for the to  add a new gategory ///
+
+  const HandelEditEmployee = (e) => {
+    e.preventDefault();
+    const id1 = edit.id;
+    axios
+      .put("http://localhost:5000/api/employes/" + id1, {
+        name: edit.name,
+        email: edit.email,
+        phone: edit.phone,
+        address: edit.address,
+        role: edit.role,
+        teams: edit.teams_id,
+      })
+      .then((res) => {
+        setEdit({
+          name: "",
+          email: "",
+          phone: "",
+          address: "",
+          role: "",
+          teams_id: "",
+          id: "",
+        });
+        setOpen1(false);
+        getAllEmployees();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to edit a employee ///
+
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
   //// for a popup ///
+  const [open1, setOpen1] = React.useState(false);
+  const handleClickOpen1 = (id, name, email, phone, address, role, teams) => {
+    const { _id } = teams;
+    setEdit({ name, email, phone, address, role, teams_id: _id, id });
+    setOpen1(true);
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
+    setEdit("");
+  };
 
   return (
     <div className="projects">
@@ -235,7 +289,6 @@ function Employees() {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-
             <form onSubmit={Handeladdemployees}>
               <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
@@ -344,11 +397,131 @@ function Employees() {
                   buttonSize="btn-lg"
                   text={"Save employee"}
                   type="submit"
-
                 />
               </DialogActions>
             </form>
           </Dialog>
+
+          {/* for edit popup  */}
+
+          <Dialog
+            open={open1}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose1}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <form onSubmit={HandelEditEmployee}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Name "
+                      variant="standard"
+                      value={edit.name}
+                      onChange={(e) =>
+                        setEdit({ ...edit, name: e.target.value })
+                      }
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Email  "
+                      variant="standard"
+                      value={edit.email}
+                      onChange={(e) =>
+                        setEdit({ ...edit, email: e.target.value })
+                      }
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Phone  "
+                      variant="standard"
+                      value={edit.phone}
+                      onChange={(e) =>
+                        setEdit({ ...edit, phone: e.target.value })
+                      }
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Address  "
+                      variant="standard"
+                      value={edit.address}
+                      onChange={(e) =>
+                        setEdit({ ...edit, address: e.target.value })
+                      }
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Add Her Role  "
+                      variant="standard"
+                      value={edit.role}
+                      onChange={(e) =>
+                        setEdit({ ...edit, role: e.target.value })
+                      }
+                    />
+
+                    {/*  for a input select */}
+                    <div>
+                      <FormControl sx={{ m: 0.1, width: 442 }}>
+                        <InputLabel id="demo-multiple-chip-label">
+                          ALL Teams
+                        </InputLabel>
+                        {console.log("edit values in select:", edit.values)}
+                        <Select
+                          // value={edit.values.project_id}
+                          // onChange={(e) =>
+                          //   setEdit({
+                          //     ...edit,
+                          //     values: {
+                          //       ...edit.values,
+                          //       project_id: e.target.value,
+                          //     },
+                          //   })
+                          // }
+                          value={edit.teams_id}
+                          onChange={(e) =>
+                            setEdit({ ...edit, teams_id: e.target.value })
+                          }
+                        >
+                          {teams.map((item, index) => (
+                            <MenuItem value={item._id} key={index}>
+                              {item.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+
+                    {/* END for a input select */}
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose1}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save employee"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
+          </Dialog>
+
+          {/* for edit popup  */}
         </div>
 
         {/* for a popup */}
@@ -441,7 +614,6 @@ function Employees() {
                           scope="row"
                           align="center"
                         >
-                          {/* 71554747 */}
                           {item.phone}
                         </StyledTableCell>
 
@@ -450,7 +622,6 @@ function Employees() {
                           scope="row"
                           align="center"
                         >
-                          {/* 71554747 */}
                           {item.address}
                         </StyledTableCell>
 
@@ -459,7 +630,6 @@ function Employees() {
                           scope="row"
                           align="center"
                         >
-                          {/* leader */}
                           {item.role}
                         </StyledTableCell>
 
@@ -470,17 +640,27 @@ function Employees() {
                         >
                     
                           {item.teams.name}
-                        </StyledTableCell> */}
+                        </StyledTableCell>  */}
 
                         <StyledTableCell align="left" style={{ padding: 0 }}>
                           <div className="button_table">
-                            {/* <Link to={`/dashboard/Projects/${''}`}> */}
                             <Buttons
                               buttonStyle="btn--success--solid"
                               buttonSize="btn-md"
                               icon={<EditIcon />}
+                              onClick={() =>
+                                handleClickOpen1(
+                                  item._id,
+                                  item.name,
+                                  item.email,
+                                  item.phone,
+                                  item.address,
+                                  item.role,
+                                  item.teams
+                                )
+                              }
                             />
-                            {/* </Link> */}
+
                             <Buttons
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
