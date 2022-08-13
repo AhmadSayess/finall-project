@@ -16,7 +16,6 @@ import CallToActionIcon from "@mui/icons-material/CallToAction";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import TitleIcon from "@mui/icons-material/Title";
 import DescriptionIcon from "@mui/icons-material/Description";
-import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 
 //// for a input select ///
 
@@ -48,8 +47,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 //// for a popup ///
-
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -85,19 +82,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -106,45 +90,34 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-//// for a input select ///
 
 function Postes() {
+  //// to get all category ///
+  const [category, setCategory] = useState([]); /// to get all gategory ///
 
-//// to get all category ///
-const [category, setCategory] = useState([]); /// to get all gategory ///
-
-const getAllcategory = async () => {
-  // e.preventDefault();
-  await axios
-    .get("http://localhost:5000/api/category")
-    .then((res) => {
-      if (res.status === 200) {
-        setCategory(res.data.response);
-        console.log(res.data.response);
-        // setLoading(false);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-useEffect(() => {
-  // setLoading(true);
-  getAllcategory();
-}, []);
-
-
-
-
-
-
+  const getAllcategory = async () => {
+    await axios
+      .get("http://localhost:5000/api/category")
+      .then((res) => {
+        if (res.status === 200) {
+          setCategory(res.data.response);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getAllcategory();
+  }, []);
 
   //// for a input select ///
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
+    let pro = category.filter((e) => e.name === event.target.value[0]);
+    setPostCategory(pro[0]._id);
     const {
       target: { value },
     } = event;
@@ -156,6 +129,8 @@ useEffect(() => {
   //// for a input select ///
 
   const [postes, setPostes] = useState([]);
+  const [DATA, setDATA] = useState([]); 
+
   const [loading, setLoading] = useState(false);
 
   const getAllPostes = async () => {
@@ -164,6 +139,7 @@ useEffect(() => {
       .then((res) => {
         if (res.status === 200) {
           setPostes(res.data.result);
+          setDATA(res.data.result);
           setLoading(false);
         }
       })
@@ -178,39 +154,87 @@ useEffect(() => {
   }, []);
 
 
+  ////  satrt to edit a post ///
 
-    ////  satrt to delet a post ///
-    const Handeldeleteposte = (id) => {
-      
-        axios.delete(`http://localhost:5000/api/post/${id}`)
-        .then((res) => {
-          setLoading(true);
-          getAllPostes();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-       
-    
-    };
-    ////  end to delet a post ///
+
+
+
+
+  
+  ////  end to edit a post ///
+
+
+
+
+  //// for to add a post ///
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [images, setImages] = useState([]);
+  const [postCategory, setPostCategory] = useState("");
+
+  const HandelAddPost = async (e) => {
+    e.preventDefault();
+    const image_array = Object.values(images.images);
+    const formData = new FormData();
+    image_array.forEach((file) => {
+      formData.append("image", file);
+    });
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("category", postCategory);
+
+    await axios
+      .post("http://localhost:5000/api/post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        setTitle("");
+        setDescription("");
+        setImages("");
+        setPostCategory('')
+        setOpen(false);
+        getAllPostes();
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  //// for to add a post ///
+
+  ////  satrt to delet a post ///
+  const Handeldeleteposte = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/post/${id}`)
+      .then((res) => {
+        setLoading(true);
+        getAllPostes();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  ////  end to delet a post ///
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
+    setTitle("");
+    setDescription("");
+    setImages("");
+    setPostCategory('')
   };
   //// for a popup ///
   return (
     <div className="projects">
-      
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a postes" />
+        <Search placeholder="Search for a postes"  data={DATA} searched={setPostes} page={'posts'} />
         {/* for a popup */}
         <Buttons
           buttonStyle="btn--success--solid"
@@ -226,93 +250,109 @@ useEffect(() => {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { m: 1.5, width: "49ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    name="upload-photo"
-                    type="file"
-                    variant="standard"
-                    multiple
-                  />
+            <form encType="multipart/form-data" onSubmit={HandelAddPost}>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1.5, width: "49ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      name="image"
+                      type="file"
+                      variant="standard"
+                      inputProps={{
+                        multiple: true,
+                      }}
+                      // value={images}
+                      onChange={(e) => setImages({ images: e.target.files })}
+                    />
 
-                  <TextField
-                    id="standard-basic"
-                    label="Enter your title"
-                    variant="standard"
-                  />
-                  <TextField
-                    id="standard-basic"
-                    label="Enter your description"
-                    variant="standard"
-                  />
+                    <TextField
+                      id="standard-basic"
+                      label="Enter your title"
+                      variant="standard"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <TextField
+                      id="standard-basic"
+                      label="Enter your description"
+                      variant="standard"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
 
-                  {/*  for a input select */}
-                  <div>
-                    <FormControl sx={{ m: 0.1, width: 442 }}>
-                      <InputLabel id="demo-multiple-chip-label">ALL Category</InputLabel>
-                      <Select
-                        labelId="demo-multiple-chip-label"
-                        id="demo-multiple-chip"
-                        multiple
-                        value={personName}
-                        onChange={handleChange}
-                        input={
-                          <OutlinedInput
-                            id="select-multiple-chip"
-                            label="ALL Category"
-                          />
-                        }
-                        renderValue={(selected) => (
-                          <Box
-                            sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}
-                          >
-                            {selected.map((value) => (
-                              <Chip key={value} label={value} />
-                            ))}
-                          </Box>
-                        )}
-                        MenuProps={MenuProps}
-                      >
-                        {category.map((cat) => (
-                          <MenuItem
-                            key={cat._id}
-                            value={cat.name}
-                            style={getStyles(cat.name, personName, theme)}
-                          >
-                            {cat.name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
-                  {/* END for a input select */}
+                    {/*  for a input select */}
+                    <div>
+                      <FormControl sx={{ m: 0.1, width: 442 }}>
+                        <InputLabel id="demo-multiple-chip-label">
+                          ALL Category
+                        </InputLabel>
+                        <Select
+                          labelId="demo-multiple-chip-label"
+                          id="demo-multiple-chip"
+                          multiple
+                          value={personName}
+                          onChange={handleChange}
+                          input={
+                            <OutlinedInput
+                              id="select-multiple-chip"
+                              label="ALL Category"
+                            />
+                          }
+                          renderValue={(selected) => (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                              }}
+                            >
+                              {selected.map((value) => (
+                                <Chip key={value} label={value} />
+                              ))}
+                            </Box>
+                          )}
+                          MenuProps={MenuProps}
+                        >
+                          {category.map((cat) => (
+                            <MenuItem
+                              key={cat._id}
+                              value={cat.name}
+                              style={getStyles(cat.name, personName, theme)}
+                            >
+                              {cat.name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    {/* END for a input select */}
 
-                  {/* END for the input in the popup */}
-                </Box>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Buttons
-                buttonStyle="btn--danger--solid"
-                buttonSize="btn-lg"
-                text={"Cancel "}
-                onClick={handleClose}
-              />
-              <Buttons
-                buttonStyle="btn--success--solid"
-                buttonSize="btn-lg"
-                text={"Save Poste"}
-                onClick={handleClose}
-              />
-            </DialogActions>
+                    {/* END for the input in the popup */}
+                  </Box>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Buttons
+                  buttonStyle="btn--danger--solid"
+                  buttonSize="btn-lg"
+                  text={"Cancel "}
+                  onClick={handleClose}
+                />
+                <Buttons
+                  buttonStyle="btn--success--solid"
+                  buttonSize="btn-lg"
+                  text={"Save Poste"}
+                  type="submit"
+                />
+              </DialogActions>
+            </form>
           </Dialog>
         </div>
 
@@ -374,7 +414,7 @@ useEffect(() => {
                           style={{ paddingTop: "12px", paddingBottom: "12px" }}
                         >
                           <img
-                            style={{ width: "40px", "border-radius": "70%" }}
+                            style={{ width: "35px", "border-radius": "70%" }}
                             src={item.image[0]}
                             alt="image"
                           />
@@ -406,19 +446,29 @@ useEffect(() => {
 
                         <StyledTableCell align="left" style={{ padding: 0 }}>
                           <div className="button_table">
-                            {/* <Link to={`/dashboard/Projects/${''}`}> */}
+                      
                             <Buttons
                               buttonStyle="btn--success--solid"
                               buttonSize="btn-md"
                               icon={<EditIcon />}
+                              // onClick={() =>
+                              //   handleClickOpen1(
+                              //     item._id,
+                              //     item.name,
+                              //     item.email,
+                              //     item.phone,
+                              //     item.address,
+                              //     item.role,
+                              //     item.teams
+                              //   )
+                              // }
                             />
-                            {/* </Link> */}
+                      
                             <Buttons
                               buttonStyle="btn--danger--solid"
                               buttonSize="btn-md"
                               icon={<DeleteOutlineIcon />}
                               onClick={() => Handeldeleteposte(item._id)}
-
                             />
                           </div>
                         </StyledTableCell>

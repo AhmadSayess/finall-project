@@ -96,7 +96,7 @@ export const Activities = () => {
           return (
             <div className="cardse" key={index}>
               <div>
-                <img src={item.image} alt="logo" />
+                <img src={item.image[0]} alt="logo" />
                 <p className="date">
                   posted on : {Moment(item.date).format("DD-MM-YYYY")}
                 </p>

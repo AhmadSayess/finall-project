@@ -15,7 +15,6 @@
 }
 
 .nav-menu{
-    /* color: #8ab038; */
     position: absolute;
     top: 20px;
     right: 5px;
@@ -109,6 +108,5 @@
 }
 
 .css-wodj9l-MuiSvgIcon-root {
-    /* color: #8ab038 !important; */
     transition: .5s;
 }

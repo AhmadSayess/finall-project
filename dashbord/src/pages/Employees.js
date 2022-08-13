@@ -112,6 +112,7 @@ function Employees() {
   ////end for a input select ///
 
   const [employees, setEmployees] = useState([]); // to get all employees //
+  const [DATA, setDATA] = useState([]); // to get all employees //
   const [loading, setLoading] = useState(false);
   //// satart to add a employees ///
   const [name, setName] = useState(""); // for the input to add employees //
@@ -129,7 +130,6 @@ function Employees() {
     role: role,
     teams: employee,
   };
-  // console.log(data);
   const Handeladdemployees = (e) => {
     e.preventDefault();
     axios
@@ -142,7 +142,6 @@ function Employees() {
         setRole("");
         setOpen(false);
         getAllEmployees();
-        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -157,6 +156,7 @@ function Employees() {
       .then((res) => {
         if (res.status === 200) {
           setEmployees(res.data);
+          setDATA(res.data)
           setLoading(false);
         }
       })
@@ -270,10 +270,12 @@ function Employees() {
     setEdit("");
   };
 
+
+
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a employees" data />
+        <Search placeholder={"Search for a employees"} data={DATA} searched={setEmployees} page={'employee'} />
         {/* for a popup */}
         <Buttons
           buttonStyle="btn--success--solid"
@@ -474,7 +476,6 @@ function Employees() {
                         <InputLabel id="demo-multiple-chip-label">
                           ALL Teams
                         </InputLabel>
-                        {console.log("edit values in select:", edit.values)}
                         <Select
                           // value={edit.values.project_id}
                           // onChange={(e) =>
@@ -591,7 +592,6 @@ function Employees() {
               <TableBody>
                 {employees &&
                   employees.map((item, index) => {
-                    // console.log("emloyee", item);
                     return (
                       <StyledTableRow key={index} className="main_row">
                         <StyledTableCell

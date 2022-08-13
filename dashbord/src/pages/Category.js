@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
+import {Table, TableBody } from "@mui/material";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -58,6 +57,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export const Category = () => {
   const [category, setCategory] = useState([]); /// to get all gategory ///
+  const [DATA, setDATA] = useState([]); 
   const [loading, setLoading] = useState(false);
 
   //// to get all category ///
@@ -67,6 +67,7 @@ export const Category = () => {
       .then((res) => {
         if (res.status === 200) {
           setCategory(res.data.response);
+          setDATA(res.data.response);
           setLoading(false);
         }
       })
@@ -157,7 +158,7 @@ export const Category = () => {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a category" />
+        <Search placeholder="Search for a category" data={DATA} searched={setCategory} page={'category  '} />
 
         {/* for a popup */}
         <Buttons

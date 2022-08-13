@@ -36,8 +36,11 @@
 
   }
   .more-info-photo img {
-    height: 300px;
-    width: 370px;
+   
+    height: 319px;
+    width: 300px;
+    margin: 8px;
+
   }
   /* .all-photo{
     display: flex;

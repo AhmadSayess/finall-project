@@ -41,6 +41,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export const Message = () => {
   const [messages, setMessages] = useState([]); /// to get all messages ///
+  const [DATA, setDATA] = useState([]); 
+
   const [loading, setLoading] = useState(false);
 
   //// to get all category ///
@@ -50,6 +52,7 @@ export const Message = () => {
       .then((res) => {
         if (res.status === 200) {
           setMessages(res.data.response);
+          setDATA(res.data.response);
           setLoading(false);
         }
       })
@@ -81,7 +84,7 @@ export const Message = () => {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a messages" />
+        <Search placeholder="Search for a messages"   data={DATA} searched={setMessages} page={'message'}/>
       </div>
 
       <div
@@ -163,7 +166,7 @@ export const Message = () => {
                           scope="row"
                           align="center"
                         >
-                          {item.messages}
+                          {item.messages.substring(0,30)}
                         </StyledTableCell>
 
                         <StyledTableCell align="left" style={{ padding: 0 }}>

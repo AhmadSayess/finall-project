@@ -60,6 +60,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [DATA, setDATA] = useState([]); 
+
   // const [searchValue, setSearchValue] = useState('');
 
   const getAllProjects = async () => {
@@ -68,6 +70,7 @@ function Projects() {
       .then((res) => {
         if (res.status === 200) {
           setProjects(res.data.response);
+          setDATA(res.data.response);
           setLoading(false);
         }
       })
@@ -156,7 +159,7 @@ function Projects() {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a project" />
+        <Search placeholder="Search for a project" data={DATA} searched={setProjects} page={'teams'} />
 
         {/* for a popup */}
         <Buttons

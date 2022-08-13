@@ -62,6 +62,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function Admins() {
   // toast.configure();
   const [admin, setAdmin] = useState([]); /// to get all admin ///
+  const [DATA, setDATA] = useState([]); 
   const [loading, setLoading] = useState(false);
 
   const getAllAdmin = async () => {
@@ -70,6 +71,7 @@ function Admins() {
       .then((res) => {
         if (res.status === 200) {
           setAdmin(res.data.response);
+          setDATA(res.data.response);
           setLoading(false);
 
           // console.log(res.data.response);
@@ -170,7 +172,7 @@ function Admins() {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a admin" />
+        <Search placeholder="Search for a admin" data={DATA} searched={setAdmin} page={'admin'}  />
         {/* for a popup */}
         <Buttons
           buttonStyle="btn--success--solid"

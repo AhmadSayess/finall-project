@@ -97,6 +97,8 @@ function Teams() {
       .then((res) => {
         if (res.status === 200) {
           setTeams(res.data);
+          setDATA(res.data);
+
           setLoading(false);
           console.log("teams:", Teams);
         }
@@ -112,8 +114,8 @@ function Teams() {
   //// to get all teams ///
 
   //// for to add a admin ///
-  const [name, setName] = useState(""); /// state for the input  name  teams///
-  const [project, setProject] = useState(""); /// state for the input  name  teams///
+  const [name,  setName] = useState(""); 
+  const [project, setProject] = useState(""); 
   const data = {
     name,
     projects: project,
@@ -171,6 +173,8 @@ function Teams() {
 
   ////  get  all projects to the select input ///
   const [projects, setProjects] = useState([]);
+  const [DATA, setDATA] = useState([]); 
+
   const getAllProjects = async () => {
     await axios
       .get("http://localhost:5000/api/projects")
@@ -192,11 +196,9 @@ function Teams() {
 
   //// for a popup ///
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
     setName("");
@@ -238,7 +240,7 @@ function Teams() {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a teams" />
+        <Search placeholder="Search for a teams" data={DATA} searched={setTeams} page={'teams'}/>
         {/* for a popup */}
         <Buttons
           buttonStyle="btn--success--solid"

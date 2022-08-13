@@ -34,7 +34,7 @@ export const Home = () => {
       <Carousal />
       <div className="about-us">
         <h2>
-          <a href="/aboutus">About Us</a>
+          <a href="#" id="">About Us</a>
         </h2>
         <p>Through this National Assembly, we seek to dominate</p>
       </div>
@@ -47,6 +47,7 @@ export const Home = () => {
       </div>
       <div className="goal">
         <p>Among its main objectives:</p>
+        {/* <a href="#aboutus" >link</a> */}
         <li>Helping the poor, needy and orphans.</li>
         <li>
           Organizing seminars, lectures, recreational and cultural meetings, and

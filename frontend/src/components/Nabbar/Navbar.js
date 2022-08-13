@@ -19,11 +19,9 @@ export const Navbar = () => {
               {/* <a href="/">Home</a> */}
               <NavLink to={"/"} className={({isActive}) => isActive ? "active" : ""} >Home</NavLink>
             </li>
-            <li>
-              {/* <a href="/">About Us</a> */}
+            {/* <li>
               <NavLink to={"/aboutus"} className={({isActive}) => isActive ? "active" : ""}>About Us</NavLink>
-
-            </li>
+            </li> */}
             <li>
               {/* <a href="/activities">Activities</a> */}
               <NavLink to={"/activities"} className={({isActive}) => isActive ? "active" : ""}>Activities</NavLink>

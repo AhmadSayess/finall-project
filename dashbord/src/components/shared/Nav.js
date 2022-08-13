@@ -6,14 +6,13 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
-import InfoIcon from '@mui/icons-material/Info';
 import { NavLink } from 'react-router-dom'
 import MessageIcon from '@mui/icons-material/Message';
 import './nav.css';
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-// import Logo from '../../twi.png'
+
 
 
 function Nav() {
@@ -24,7 +23,6 @@ function Nav() {
   return (
     <div className='nav'  >
       <div data-aos-duration="1500" data-aos="fade-down">
-        {/* <img id="img" src={Logo} alt='' /> */}
         <h3 id='h3'>T W I</h3>
       </div>
       <ul>
@@ -72,13 +70,6 @@ function Nav() {
             <span className='ms-3'>Projects</span>
           </li>
         </NavLink>
-{/* 
-        <NavLink style={({ isActive }) => (isActive ? { backgroundColor: 'var(--buttonhover1)', color: 'var(--textcolor1)' } : { backgroundColor: 'transparent' })} to='/dashboard/Aboutus'>
-          <li data-aos-duration="1500" data-aos="fade-right"  style={{ backgroundColor: "inherit" }}>
-            <InfoIcon className='icon' />
-            <span className='ms-3'>About us</span>
-          </li>
-        </NavLink> */}
 
         <NavLink style={({ isActive }) => (isActive ? { backgroundColor: 'var(--buttonhover1)', color: 'var(--textcolor1)' } : { backgroundColor: 'transparent' })} to='/dashboard/Messages'>
           <li data-aos-duration="1500" data-aos="fade-right"  style={{ backgroundColor: "inherit" }}>
