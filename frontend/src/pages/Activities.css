@@ -9,8 +9,9 @@
   color: #34384C;
   font-size: 35px;
 }
+
 .cardse img {
-  width: 820px;
+  width: 1000px;
   height: 700px;
   margin-top: 45px;
 }
@@ -25,15 +26,19 @@
  font-family: "Cairo", Sans-serif;
  color: #244f7e;
  font-size: 16px;
- font-family: Niramit;
-
+ font-weight: bolder;
 }
 .seconds a {
  text-decoration: none;
- color: #34384c;
+ color: #244f7e;
  font-family: "Cairo", Sans-serif;
  font-size: 25px;
 }
+.seconds a:hover {
+  text-decoration: none;
+  color: #6ec1e4;
+  font-family: "Cairo", Sans-serif;
+ }
 .paragraph{
   /* margin-top: 25px; */
  color: #34384C;

@@ -1,17 +1,15 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
-
-export const  RecommendedPost = ({post, title, showDescription , button}) => {
+export const RecommendedPost = ({ post, title, showDescription, button }) => {
   return (
     <>
-
-<div className="main">
+      <div className="main">
         <h2>{title}</h2>
         <ul className="cardss">
           {post &&
             post.map((item, index) => {
-              return (  
+              return (
                 <li key={index} className="cards_item">
                   <div className="card">
                     <div className="card_image">
@@ -20,22 +18,28 @@ export const  RecommendedPost = ({post, title, showDescription , button}) => {
 
                     <div className="card_content">
                       <h1 className="card_title">
-                        <Link className="card-title-link" to={`/activitie/${item._id}`}>{item.title}</Link>
+                        <Link
+                          className="card-title-link"
+                          to={`/activitie/${item._id}`}
+                        >
+                          {item.title.substring(0, 31)}...
+                        </Link>
                       </h1>
-                      {showDescription && <p className="card_text">{item.description}</p>}
+                      {showDescription && (
+                        <p className="card_text">
+                          {item.description.substring(0, 195)}...
+                        </p>
+                      )}
                     </div>
                   </div>
                 </li>
-                
               );
             })}
         </ul>
- {    button &&  <button className="btnq card_btn">All Activities</button>}
-
+        <Link to={"/activities"}>
+          {button && <button className="btnq card_btn">ALL ACTIVITIES</button>}
+        </Link>
       </div>
-    
-
-
     </>
-  )
-}
+  );
+};

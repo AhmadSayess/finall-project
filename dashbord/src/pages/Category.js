@@ -13,6 +13,8 @@ import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import Search from "../components/shared/Search";
 import CallToActionIcon from "@mui/icons-material/CallToAction";
 import Loading from "../components/shared/Loading";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 //// for a popup ///
 import Dialog from "@mui/material/Dialog";
@@ -56,6 +58,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const Category = () => {
+  // toast.configure();
   const [category, setCategory] = useState([]); /// to get all gategory ///
   const [DATA, setDATA] = useState([]); 
   const [loading, setLoading] = useState(false);
@@ -158,7 +161,7 @@ export const Category = () => {
   return (
     <div className="projects">
       <div className="d-flex justify-content-around">
-        <Search placeholder="Search for a category" data={DATA} searched={setCategory} page={'category  '} />
+        <Search placeholder="Search for a category" data={DATA} searched={setCategory} page={'category'} />
 
         {/* for a popup */}
         <Buttons
@@ -292,6 +295,7 @@ export const Category = () => {
               <TableBody>
                 {category &&
                   category.map((item, index) => {
+                    console.log(category);
                     return (
                       <StyledTableRow key={index} className="main_row">
                         <StyledTableCell

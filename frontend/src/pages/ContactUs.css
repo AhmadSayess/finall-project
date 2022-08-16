@@ -1,11 +1,9 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
 body,
@@ -20,18 +18,25 @@ textarea {
   min-height: 100vh;
   padding: 2rem;
   /* background-color: #12192c; */
-  background-color: #436284;
+  background-color: #fcf7eb;
+  /* background-image: url('https://pngtree.com/free-backgrounds-photos/contact'); */
+
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 18px;
 }
+.fronticon {
+  font-size: 35px;
+  /* margin-top: 2px; */
+  /* height: 35px; */
+}
 
 .form {
   width: 100%;
   max-width: 820px;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 10px;
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
   /* z-index: 1000; */
@@ -45,14 +50,14 @@ textarea {
   position: relative;
 }
 
-
-
 .contact-form:before {
   content: "";
   position: absolute;
   width: 26px;
   height: 26px;
-  background-color: rgb(0, 47, 95);
+  /* background-color: rgb(0, 47, 95); */
+  background-color: #6ec1e4;
+
   transform: rotate(45deg);
   top: 50px;
   left: -13px;
@@ -80,16 +85,16 @@ form {
 
 .inpu {
   width: 100%;
-    outline: none;
-    border: 2px solid rgb(255 255 255);
-    background: none;
-    padding: 0.4rem 1.2rem;
-    color: #fff;
-    font-weight: 500;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
-    border-radius: 25px;
-    transition: 0.3s;
+  outline: none;
+  border: 2px solid rgb(255 255 255);
+  background: none;
+  padding: 0.4rem 1.2rem;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  border-radius: 25px;
+  transition: 0.3s;
 }
 
 textarea.inpu {
@@ -121,21 +126,22 @@ textarea.inpu {
 
 .btne {
   padding: 0.6rem 1.3rem;
-  background-color: #244F7E;;
-  border: 2px solid #6EC1E4;
+  background-color: #244f7e;
+  border: 2px solid #6ec1e4;
   font-size: 0.95rem;
-  color: #6EC1E4;
+  color: #6ec1e4;
   line-height: 1;
   border-radius: 25px;
   outline: none;
   cursor: pointer;
   transition: 0.3s;
   margin: 0;
+  width: 140px;
 }
 
 .btne:hover {
   background-color: transparent;
-  color: #6EC1E4;
+  color: #6ec1e4;
 }
 
 .input-container span {
@@ -188,12 +194,12 @@ textarea.inpu {
 .contact-info {
   padding: 2.3rem 2.2rem;
   position: relative;
-  background-color: #244F7E;
+  background-color: #244f7e;
   border: #00203fff 2px solid;
 }
 
 .contact-info .title {
-  color: #6EC1E4;
+  color: #6ec1e4;
 }
 
 .text {
@@ -233,7 +239,7 @@ textarea.inpu {
   width: 35px;
   height: 35px;
   border-radius: 5px;
-  background: #6EC1E4;
+  background: #6ec1e4;
   color: #fff;
   text-align: center;
   line-height: 35px;
@@ -244,11 +250,6 @@ textarea.inpu {
 .social-icons a:hover {
   transform: scale(1.05);
 }
-
-
-
-
-
 
 .square {
   position: absolute;
@@ -262,6 +263,11 @@ textarea.inpu {
 @media (max-width: 850px) {
   .form {
     grid-template-columns: 1fr;
+  }
+  .fronticon {
+    font-size: 25px;
+    margin-top: 2px;
+    /* height: 35px; */
   }
 
   .contact-info:before {
@@ -345,19 +351,18 @@ textarea.inpu {
   }
 }
 
-
-
-.credit{
+.credit {
   text-align: center;
   color: #fff;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-.credit a{
+.credit a {
   text-decoration: none;
-  color:#FBAB7E;
+  color: #fbab7e;
   font-weight: bold;
-} 
+}
 
 ::placeholder {
   color: white;

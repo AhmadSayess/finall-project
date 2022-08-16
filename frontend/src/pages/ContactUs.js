@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import Footer from "../components/Footer/Footer";
 import { Navbar } from "../components/Nabbar/Navbar";
 import "./ContactUs.css";
-import { FiFacebook } from "react-icons/fi";
+import { AiOutlineTwitter  ,AiFillLinkedin ,AiFillFacebook } from "react-icons/ai";
+// import {toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import {toast } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 export const ContactUs = () => {
+  toast.configure();
+
   //// for to add a admin ///
   const [body, setBody] = useState({
     name: "",
@@ -18,7 +24,8 @@ export const ContactUs = () => {
       .post("http://localhost:5000/api/messages", body)
       .then((res) => {
         setBody({});
-        alert('sent')
+        toast.success("Message sended Successfully")
+
       })
       .catch((err) => {
         console.log(err);
@@ -37,36 +44,37 @@ export const ContactUs = () => {
           <div className="contact-info">
             <h3 className="title">Let's get in touch</h3>
             <p className="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              dolorum adipisci recusandae praesentium dicta!
+            T W I is a Charity Association is a non-political, non-profit
+          organization. She holds a statement of knowledge and news No. 1350 on
+          06/29/2015.
             </p>
             <div className="info">
               <div className="information">
-                <p>92 Cherry Drive Uniondale, NY 11553</p>
+                <p>                Through this National Assembly, we seek to dominate
+</p>
               </div>
               <div className="information">
-                <p>lorem@ipsum.com</p>
+                <p>twi@gmail.com </p>
               </div>
               <div className="information">
-                <p>123-456-789</p>
+                <p>+961-70 363 362 OR 06693540</p>
               </div>
             </div>
             <div className="social-media">
               <p>Connect with us :</p>
               <div className="social-icons">
-                <a href="#">
-                  {/* <i className="fab fa-facebook-f" /> */}
-                  <FiFacebook />
+                <a href="https://www.facebook.com/%D8%AC%D9%85%D8%B9%D9%8A%D8%A9-%D8%A7%D9%84%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%88%D8%A7%D9%84%D8%A5%D8%B1%D8%A7%D8%AF%D8%A9-%D8%A7%D9%84%D8%AE%D9%8A%D8%B1%D9%8A%D8%A9-796330657142889">
+                  <AiFillFacebook  className="fronticon"/>
                 </a>
-                <a href="#">
-                  <i className="fab fa-twitter" />
+                <a href="/">
+                <AiOutlineTwitter  className="fronticon"/>
+
                 </a>
-                <a href="#">
-                  <i className="fab fa-instagram" />
+                <a href="/">
+                <AiFillLinkedin  className="fronticon"/>
+
                 </a>
-                <a href="#">
-                  <i className="fab fa-linkedin-in" />
-                </a>
+               
               </div>
               <br />
               {/* <div className="credit">Made with <span style={{color: 'blue'}}>❤</span> by <a href="https://www.learningrobo.com/">Learning Robo</a></div>   */}
@@ -75,6 +83,7 @@ export const ContactUs = () => {
           <div className="contact-form">
             <span className="circle one" />
             <span className="circle two" />
+            <form>
               <h3 className="title">Contact us</h3>
               <div className="input-container">
                 <input
@@ -84,7 +93,6 @@ export const ContactUs = () => {
                   placeholder="enter your full name"
                   onChange={(e) => setBody({ ...body, name: e.target.value })}
                 />
-                {/* <label >Username</label> */}
                 <span>Username</span>
               </div>
               <div className="input-container">
@@ -95,7 +103,6 @@ export const ContactUs = () => {
                   placeholder="enter your email"
                   onChange={(e) => setBody({ ...body, email: e.target.value })}
                 />
-                {/* <label >Email</label> */}
                 <span>Email</span>
               </div>
               <div className="input-container">
@@ -106,7 +113,6 @@ export const ContactUs = () => {
                   placeholder="enter your phone"
                   onChange={(e) => setBody({ ...body, phone: e.target.value })}
                 />
-                {/* <label >Phone</label> */}
                 <span>Phone</span>
               </div>
               <div className="input-container textarea">
@@ -119,14 +125,13 @@ export const ContactUs = () => {
                     setBody({ ...body, messages: e.target.value })
                   }
                 />
-                {/* <label >Message</label> */}
                 <span>Message</span>
               </div>
               <button className="btne" onClick={AddMessage}>submit</button>
+              </form>
           </div>
         </div>
       </div>
-      {/* <Footer/> */}
       <Footer />
     </>
   );

@@ -307,8 +307,13 @@
       width: 24.99%;
   }
 }
-@media (min-width: 568px) {
+@media (max-width: 759px) {
   /* .footer-content-column {
       width: 49.99%;
   } */
+  .footer-content {
+    text-align: center;
+    padding: 40px 15px 905px;
+}
+
 }

@@ -31,7 +31,7 @@ function Footer() {
 
               </div>
               <div className="footer-menu">
-                <h2 className="footer-menu-name"> Get Started</h2>
+                <h3 className="footer-menu-name"> Get Started</h3>
                 <ul id="menu-get-started" className="footer-menu-list">
                   <li className="menu-item menu-item-type-post_type menu-item-object-product">
                     <a href="/aboutus">Start</a>
@@ -47,7 +47,7 @@ function Footer() {
             </div>
             <div className="footer-content-column">
               <div className="footer-menu">
-                <h2 className="footer-menu-name"> Company</h2>
+                <h3 className="footer-menu-name"> Company</h3>
                 <ul id="menu-company" className="footer-menu-list">
                   <li className="menu-item menu-item-type-post_type menu-item-object-page">
                     <a href="/contactus">Contact</a>
@@ -61,7 +61,7 @@ function Footer() {
                 </ul>
               </div>
               {/* <div className="footer-menu">
-                <h2 className="footer-menu-name"> Legal</h2>
+                <h3 className="footer-menu-name"> Legal</h3>
                 <ul id="menu-legal" className="footer-menu-list">
                   <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-170434">
                     <a href="#">Privacy Notice</a>
@@ -74,7 +74,7 @@ function Footer() {
             </div>
             <div className="footer-content-column">
               <div className="footer-menu">
-                <h2 className="footer-menu-name"> Pages</h2>
+                <h3 className="footer-menu-name"> Pages</h3>
                 <ul id="menu-quick-links" className="footer-menu-list">
                   <li className="menu-item menu-item-type-custom menu-item-object-custom">
                     <a target="_blank" rel="noopener noreferrer" href="/">
@@ -97,7 +97,7 @@ function Footer() {
             </div>
             <div className="footer-content-column">
               <div className="footer-call-to-action">
-                <h2 className="footer-call-to-action-title"> Let's Chat</h2>
+                <h3 className="footer-call-to-action-title"> Let's Chat</h3>
                 <p className="footer-call-to-action-description">
                   {" "}
                   Have a support question?
@@ -112,7 +112,7 @@ function Footer() {
                 </a>
               </div>
               <div className="footer-call-to-action">
-                <h2 className="footer-call-to-action-title"> You Call Us</h2>
+                <h3 className="footer-call-to-action-title"> You Call Us</h3>
                 <p className="footer-call-to-action-link-wrapper">
                   {" "}
                   <a

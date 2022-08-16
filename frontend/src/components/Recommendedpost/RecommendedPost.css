@@ -31,8 +31,9 @@
   }
   
   .title {
-    font-size: 1.3rem;
-    font-family: 'Poppins';
+    font-size: 39px;
+    font-family: monospace;;
+
     padding: 10px 0px 0px 10px;
     /* color: #b80f20; */
   }

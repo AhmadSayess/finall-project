@@ -2,17 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navbar } from "../components/Nabbar/Navbar";
 import "./Activities.css";
-// import logo from '../images/twi.jpeg'
-// import lozo from "../images/1qq.jpeg";
 import Moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
-
-// import { Footer } from "../components/Footer/Footer";
 export const Activities = () => {
   const [activity, setActivity] = useState([]);
   const [category, setCategory] = useState([]);
-  console.log({activity});
 
   const getActivities = async () => {
     await axios
@@ -64,9 +59,12 @@ export const Activities = () => {
     }
   };
 
+  const { id } = useParams()
+
   useEffect(() => {
-    getActivities();
     getCategories();
+    getActivities();
+
   }, []);
   return (
     <>
@@ -74,10 +72,10 @@ export const Activities = () => {
       {/* <div className="postes"> */}
 
       <div className="titile">
-        <h2>Activities</h2>
+        <h2>Activities </h2>
       </div>
       <div>
-        <label for="cat">Category</label>
+        <label for="cat">Category :  </label>
 
 
         <select name="pets" id="cat" onChange={getActivitiesByCategory}>
@@ -104,9 +102,9 @@ export const Activities = () => {
 
               <div className="seconds">
                 <Link to={`/activitie/${item._id}`}>
-                  <a href="/moreinfo">{item.title}</a>
+                  <a href="/moreinfo">{item.title.substring(0,40)}......</a>
                 </Link>
-                <p className="paragraph">{item.description}</p>
+                <p className="paragraph">{item.description.substring(0,245)}.........</p>
               </div>
             </div>
           );

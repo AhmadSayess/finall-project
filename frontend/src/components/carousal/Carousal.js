@@ -3,6 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider2 from "../../images/Slider-2.jpg";
 import "./carousal.css";
+import { Link } from "react-router-dom";
 
 export default function Carousal() {
   // const ArrowLeft = (props) => (
@@ -40,8 +41,10 @@ export default function Carousal() {
           <div className="singleSlider">
             <img src={Slider2} alt="loading" />
             <div className="contentSlider">
-              <h1> You have a profession ? Share your service !</h1>
-              <button className="">Be a Provider</button>
+              <h1> TWI in the health field </h1>
+              <Link to={"activities/62d659e93a228b72902bd1af"}>
+                <button className="">LEARN MORE</button>
+              </Link>
             </div>
           </div>
         </section>
@@ -50,8 +53,22 @@ export default function Carousal() {
           <div className="singleSlider">
             <img src={Slider2} alt="loading" />
             <div className="contentSlider">
-              <h1> You have a profession ? Share your service !</h1>
-              <button className="">Be a Provider</button>
+              <h1> TWI in the Charity !</h1>
+              <Link to={"activities/62d64b033a228b72902bd19f"}>
+                <button className="">LEARN MORE</button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="">
+          <div className="singleSlider">
+            <img src={Slider2} alt="loading" />
+            <div className="contentSlider">
+              <h1> Hygiene is the shield of life !</h1>
+              <Link to={"activities/62d64b4b3a228b72902bd1a1"}>
+                <button className="">LEARN MORE</button>
+              </Link>
             </div>
           </div>
         </section>

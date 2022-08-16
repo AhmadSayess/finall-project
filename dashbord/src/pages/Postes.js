@@ -414,7 +414,7 @@ function Postes() {
                           style={{ paddingTop: "12px", paddingBottom: "12px" }}
                         >
                           <img
-                            style={{ width: "35px", "border-radius": "70%" }}
+                            style={{ width: "55px", "border-radius": "70%" }}
                             src={item.image[0]}
                             alt="image"
                           />
@@ -425,7 +425,7 @@ function Postes() {
                           scope="row"
                           align="center"
                         >
-                          {item.title}
+                          {item.title.substring(0,30)}
                         </StyledTableCell>
 
                         <StyledTableCell
@@ -433,7 +433,7 @@ function Postes() {
                           scope="row"
                           align="center"
                         >
-                          {item.description}
+                          {item.description.substring(0,29)}...
                         </StyledTableCell>
 
                         {/* <StyledTableCell
@@ -451,17 +451,7 @@ function Postes() {
                               buttonStyle="btn--success--solid"
                               buttonSize="btn-md"
                               icon={<EditIcon />}
-                              // onClick={() =>
-                              //   handleClickOpen1(
-                              //     item._id,
-                              //     item.name,
-                              //     item.email,
-                              //     item.phone,
-                              //     item.address,
-                              //     item.role,
-                              //     item.teams
-                              //   )
-                              // }
+                              
                             />
                       
                             <Buttons

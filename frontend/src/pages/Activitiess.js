@@ -5,7 +5,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
 import { RecommendedPost } from "../components/Recommendedpost/RecommendedPost";
-import Footer from "../components/Footer/Footer";
+
+
+
+
+
+
 export const Activitiess = () => {
   const { id } = useParams();
   const [singleActivity, setSingleActivity] = useState([]);
@@ -13,13 +18,29 @@ export const Activitiess = () => {
   const [images,setImages] = useState([])
 
   useEffect(() => {
+    const getSingleActivities = async (id) => {
+      await  axios
+          .get(`http://localhost:5000/api/post/${id}`)
+          .then((res) => {
+            if (res.status === 200) {
+              let data = res.data.response
+              console.log({data});
+              setImages(data.image);
+              setSingleActivity(data);
+              getLatestByCategory(data.category)
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
     if (id) {
       getSingleActivities(id);
     }
-  }, [id]);
+  }, []);
 
-  const getLatestByCategory = (category) => {
-    axios
+  const getLatestByCategory = async (category) => {
+  await  axios
       .get(`http://localhost:5000/api/post/getLatestByCat/${category}`)
       .then((res) => {
         if (res.status === 200) {
@@ -32,24 +53,7 @@ export const Activitiess = () => {
       });
   };
 
-  const getSingleActivities = (id) => {
-    axios
-      .get(`http://localhost:5000/api/post/${id}`)
-      .then((res) => {
-        if (res.status === 200) {
-          let data = res.data.response
-          console.log("data",data);
-          setImages(res.data.response.image);
-          setSingleActivity(data);
-          getLatestByCategory(data.category)
-          console.log(res.data.response);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  console.log({categoryId: singleActivity.category});
+  
   return (
     <>
       <Navbar />
