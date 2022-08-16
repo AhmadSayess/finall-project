@@ -62,3 +62,11 @@
     transition: all .3s;
 } 
 
+@media only screen and (max-width: 987px) {
+    .btn-lg{
+        font-size: 5px;
+        
+    } 
+    
+ 
+  }

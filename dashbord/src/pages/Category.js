@@ -13,8 +13,7 @@ import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import Search from "../components/shared/Search";
 import CallToActionIcon from "@mui/icons-material/CallToAction";
 import Loading from "../components/shared/Loading";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 //// for a popup ///
 import Dialog from "@mui/material/Dialog";
@@ -58,8 +57,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export const Category = () => {
-  // toast.configure();
   const [category, setCategory] = useState([]); /// to get all gategory ///
+  console.log({category});
   const [DATA, setDATA] = useState([]); 
   const [loading, setLoading] = useState(false);
 
@@ -98,8 +97,17 @@ export const Category = () => {
       .then((res) => {
         setName("");
         setOpen(false);
+        Swal.fire({
+          title: " added Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllcategory();
-        // toast.success("Category  added  Successfully")
+
       })
       .catch((err) => {
         console.log(err);
@@ -116,6 +124,15 @@ export const Category = () => {
       .put("http://localhost:5000/api/category/" + id1, { name: edit.name })
       .then((res) => {
         setOpen1(false);
+        Swal.fire({
+          title: " Edited Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllcategory();
       })
       .catch((err) => {
@@ -130,7 +147,17 @@ export const Category = () => {
       .delete(`http://localhost:5000/api/category/${id}`)
       .then((res) => {
         setLoading(true);
+        Swal.fire({
+          title: " Deleted Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllcategory();
+
       })
       .catch((err) => {
         console.log(err);

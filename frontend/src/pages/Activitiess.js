@@ -37,7 +37,7 @@ export const Activitiess = () => {
     if (id) {
       getSingleActivities(id);
     }
-  }, []);
+  }, [id]);
 
   const getLatestByCategory = async (category) => {
   await  axios

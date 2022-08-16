@@ -29,6 +29,7 @@ export const Home = () => {
     <Fragment>
       <Navbar />
       <Carousal />
+      
       <div className="description">
         <h2>About Us</h2>
         <p>
@@ -209,7 +210,7 @@ export const Home = () => {
         post={post}
         title={"Activities"}
         showDescription={true}
-        button={true}
+        p={true}
       />
       <Footer />
     </Fragment>

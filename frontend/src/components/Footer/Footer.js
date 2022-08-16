@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Footer.css";
 
-import logo from "../../images/twi.jpeg";
+// import logo from "../../images/twi.jpeg";
 
 function Footer() {
   return (

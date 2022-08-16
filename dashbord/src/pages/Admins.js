@@ -17,6 +17,7 @@ import Search from "../components/shared/Search";
 import CallToActionIcon from "@mui/icons-material/CallToAction";
 import AttachEmailIcon from "@mui/icons-material/AttachEmail";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import Swal from "sweetalert2";
 
 //// for a popup ///
 import Dialog from "@mui/material/Dialog";
@@ -106,6 +107,15 @@ function Admins() {
         setEmail("");
         setPassword("");
         setOpen(false);
+        Swal.fire({
+          title: " added Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllAdmin();
         // console.log(res.data);
       })
@@ -121,6 +131,15 @@ function Admins() {
       .delete(`http://localhost:5000/api/admin/${id}`)
       .then((res) => {
         setLoading(true);
+        Swal.fire({
+          title: " Deleted Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllAdmin();
       })
       .catch((err) => {
@@ -161,6 +180,15 @@ function Admins() {
         .put("http://localhost:5000/api/admin/" + id1, { fullname: edit.fullname , email: edit.email,   password: edit.password })
         .then((res) => {
           setOpen1(false);
+          Swal.fire({
+            title: " Edited Successfully",
+            icon: "success",
+            timer: 2000,
+            timerProgressBar: true,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+          });
           getAllAdmin();
         })
         .catch((err) => {
@@ -177,7 +205,7 @@ function Admins() {
         <Buttons
           buttonStyle="btn--success--solid"
           buttonSize="btn-lg"
-          text={"Add  Admin"}
+          text={"Add Admin"}
           onClick={handleClickOpen}
         />
         <div>

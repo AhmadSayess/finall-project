@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const RecommendedPost = ({ post, title, showDescription, button }) => {
+export const RecommendedPost = ({ post, title, showDescription, p  }) => {
   return (
     <>
       <div className="main">
@@ -22,12 +22,12 @@ export const RecommendedPost = ({ post, title, showDescription, button }) => {
                           className="card-title-link"
                           to={`/activitie/${item._id}`}
                         >
-                          {item.title.substring(0, 31)}...
+                          {item.title.substring(0, 29)}...
                         </Link>
                       </h1>
                       {showDescription && (
                         <p className="card_text">
-                          {item.description.substring(0, 195)}...
+                          {item.description.substring(0, 220)}...
                         </p>
                       )}
                     </div>
@@ -36,10 +36,11 @@ export const RecommendedPost = ({ post, title, showDescription, button }) => {
               );
             })}
         </ul>
-        <Link to={"/activities"}>
-          {button && <button className="btnq card_btn">ALL ACTIVITIES</button>}
-        </Link>
+        
+          {p && <Link  className="btnq card_btn" to={"/activities"}><p >ALL ACTIVITIES</p></Link>}
+        
       </div>
     </>
   );
 };
+

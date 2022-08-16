@@ -16,6 +16,7 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import AttachEmailIcon from "@mui/icons-material/AttachEmail";
 import MessageIcon from "@mui/icons-material/Message";
+import Swal from "sweetalert2";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -73,6 +74,15 @@ export const Message = () => {
         .delete(`http://localhost:5000/api/messages/${id}`)
         .then((res) => {
           setLoading(true);
+          Swal.fire({
+            title: "Message deleted ",
+            icon: "success",
+            timer: 2000,
+            timerProgressBar: true,
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+          });
           getAllMessages();
         })
         .catch((err) => {

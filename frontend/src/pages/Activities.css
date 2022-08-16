@@ -1,4 +1,4 @@
-.titile{
+.titile {
   text-align: center;
   margin-top: 15px;
   background-color: #fcf7eb;
@@ -6,57 +6,70 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #34384C;
+  color: #34384c;
   font-size: 35px;
 }
 
 .cardse img {
-  width: 1000px;
+  width: 800px;
   height: 700px;
   margin-top: 45px;
 }
 .cardse p {
- margin-right: 30px;
- margin-top: 25px;
-
+  margin-right: 30px;
+  margin-top: 25px;
+  font-size: 18px;
 }
-.date{
- margin-top: 35px;
- margin-bottom: 20px;
- font-family: "Cairo", Sans-serif;
- color: #244f7e;
- font-size: 16px;
- font-weight: bolder;
+.date {
+  margin-top: 35px;
+  margin-bottom: 20px;
+  font-family: "Cairo", Sans-serif;
+  color: #244f7e;
+  font-size: 16px;
+  font-weight: bolder;
 }
 .seconds a {
- text-decoration: none;
- color: #244f7e;
- font-family: "Cairo", Sans-serif;
- font-size: 25px;
+  text-decoration: none;
+  color: #244f7e;
+  font-family: "Cairo", Sans-serif;
+  font-size: 25px;
 }
 .seconds a:hover {
   text-decoration: none;
   color: #6ec1e4;
   font-family: "Cairo", Sans-serif;
- }
-.paragraph{
+}
+.paragraph {
   /* margin-top: 25px; */
- color: #34384C;
- font-family: Niramit ;
- font-size: 15px;
-
- 
- }
-.cardse{
+  color: #34384c;
+  font-family: Niramit;
+  font-size: 15px;
+}
+.cardse {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 35px;
   /* margin-top: 135px; */
-
 }
-.seconds{
-  line-height: 25px;
-  max-width: 555px;
+.seconds {
+  /* line-height: 25px;
+  max-width: 555px; */
+  line-height: 33px;
+  max-width: 800px;
+}
+
+.filterSection {
+  background-color: #6ec1e4;
+  padding: 10px 40px;
+  font-size: 1.2rem;
+  color: #244f7e;
+  
+}
+
+.filterSection select{
+  height: 30px;
+  border-radius: 4px;
+  padding: 5px;
 }

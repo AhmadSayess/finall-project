@@ -74,7 +74,7 @@ export const Activities = () => {
       <div className="titile">
         <h2>Activities </h2>
       </div>
-      <div>
+      <div className="filterSection">
         <label for="cat">Category :  </label>
 
 
@@ -102,9 +102,9 @@ export const Activities = () => {
 
               <div className="seconds">
                 <Link to={`/activitie/${item._id}`}>
-                  <a href="/moreinfo">{item.title.substring(0,40)}......</a>
+                  <a href="/moreinfo">{item.title.substring(0,55)} .....</a>
                 </Link>
-                <p className="paragraph">{item.description.substring(0,245)}.........</p>
+                <p className="paragraph">{item.description.substring(0,245)} .....</p>
               </div>
             </div>
           );

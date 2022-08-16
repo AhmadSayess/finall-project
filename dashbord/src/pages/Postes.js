@@ -16,6 +16,7 @@ import CallToActionIcon from "@mui/icons-material/CallToAction";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import TitleIcon from "@mui/icons-material/Title";
 import DescriptionIcon from "@mui/icons-material/Description";
+import Swal from "sweetalert2";
 
 //// for a input select ///
 
@@ -195,6 +196,15 @@ function Postes() {
         setImages("");
         setPostCategory('')
         setOpen(false);
+        Swal.fire({
+          title: " Edited Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllPostes();
         console.log(res.data);
       })
@@ -282,7 +292,10 @@ function Postes() {
                     <TextField
                       id="standard-basic"
                       label="Enter your description"
-                      variant="standard"
+                      // variant="standard"
+                      multiline
+                      maxRows={4}
+                      className="new-car-input input-description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     />

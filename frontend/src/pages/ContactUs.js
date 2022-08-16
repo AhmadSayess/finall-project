@@ -6,26 +6,30 @@ import { AiOutlineTwitter  ,AiFillLinkedin ,AiFillFacebook } from "react-icons/a
 // import {toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
-import {toast } from 'react-toastify';
-
-import 'react-toastify/dist/ReactToastify.css';
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 export const ContactUs = () => {
-  toast.configure();
-
+  // toast.configure();
+  let form  = document.getElementById("contact-form");
   //// for to add a admin ///
+  const [alert ,setAlert] = useState(false)
   const [body, setBody] = useState({
     name: "",
     phone: "",
     email: "",
     messages: "",
   });
-  const AddMessage = () => {
+  setTimeout(() => {
+    setAlert(false);
+  }, 10000);
+  const AddMessage = (e) => {
+    e.preventDefault();
     axios
       .post("http://localhost:5000/api/messages", body)
       .then((res) => {
-        setBody({});
-        toast.success("Message sended Successfully")
-
+        form.reset();
+        setAlert(true)
+        // toast.success("Success");
       })
       .catch((err) => {
         console.log(err);
@@ -83,7 +87,7 @@ export const ContactUs = () => {
           <div className="contact-form">
             <span className="circle one" />
             <span className="circle two" />
-            <form>
+            <form id="contact-form">
               <h3 className="title">Contact us</h3>
               <div className="input-container">
                 <input
@@ -132,6 +136,18 @@ export const ContactUs = () => {
           </div>
         </div>
       </div>
+      {alert ? (
+              <Stack
+                className="alert"
+                spacing={2}
+              >
+                <Alert variant="filled" severity="success">
+                  successfully added
+                </Alert>
+              </Stack>
+            ) : 
+              <></>
+            }
       <Footer />
     </>
   );

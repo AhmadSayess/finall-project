@@ -35,7 +35,6 @@ export const ActivitiesCat = () => {
       <div className="titile">
         <h2>Activities </h2>
       </div>
-
       <div>
         <Link to={"/activities"}>
           <button className="btnqq" for="cat"> Show All Activities</button>

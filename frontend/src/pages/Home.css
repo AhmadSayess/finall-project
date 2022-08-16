@@ -1,33 +1,4 @@
-/* body {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    letter-spacing: 0;
-    padding: 1rem;
-  } */
 
-/* .about-us {
-  background-color: white;
-  text-align: center;
-  height: 300px;
-  padding-top: 100px;
-  margin: auto 85px;
-  margin-top: 500px;
-}
-.about-us h2 a {
-  color: #244f7e;
-  text-decoration: none;
-  font-size: 39px;
-  font-family: "Cairo", Sans-serif;
-}
-.about-us p {
-  line-height: 75px;
-  font-family: Denk One;
-  font-size: 60px;
-  color: #34384c;
-  font-weight: 400;
-  margin-top: 30px;
-} */
 .description p {
   text-align: center;
   height: 400px;
@@ -142,12 +113,12 @@ h2 {
 }
 .container:hover .front,
 .container:hover .back {
-  -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  -o-transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1),
-    -webkit-transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  -webkit-transition: -webkit-transform 2s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: -webkit-transform 2s cubic-bezier(0.4, 0.2, 0.2, 1);
+  -o-transition: transform 2s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform 2s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform 2s cubic-bezier(0.4, 0.2, 0.2, 1),
+    -webkit-transform 2s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
 .back {
@@ -267,7 +238,7 @@ h2 {
 
 .main h2 {
   font-size: 39px;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   text-align: center;
   color: #244f7e;
   font-family: monospace;
@@ -296,27 +267,8 @@ img {
   text-align: center;
   font-family: monospace;
 }
-.btnqq{
-  color: white;
-  background-color: #344f7c;
-  padding: 0.8rem;
-  font-size: 15px;
-  border-radius: 4px;
-  display: block;
-  width: 15%;
-  cursor: pointer;  
-  margin: 0px 18px 10px 0px;
-  height: 52px;
-  min-width: 150px;
-  align-self: flex-end;
-  border: none;
-  text-align: center;
-  font-family: monospace;
-  margin-top: 20px;
-}
-.btnqq:hover{
-  background-color: #6ec1e4;
-
+#root > div.main > a > p{
+  padding-top: 4px;
 }
 
 .btnq:hover {
@@ -341,6 +293,31 @@ img {
   padding: 1rem;
   overflow: hidden;
 }
+.btnqq{
+  color: white;
+  background-color: #344f7c;
+  padding: 0.8rem;
+  font-size: 15px;
+  border-radius: 4px;
+  display: block;
+  position: absolute;
+  right: 5px;
+  width: 15%;
+  cursor: pointer;  
+  margin: 0px 18px 10px 0px;
+  height: 52px;
+  min-width: 150px;
+  align-self: flex-end;
+  border: none;
+  text-align: center;
+  font-family: monospace;
+  margin-top: 20px;
+}
+.btnqq:hover{
+  background-color: #6ec1e4;
+
+}
+
 
 @media (min-width: 40rem) {
   .cards_item {
@@ -387,8 +364,7 @@ img {
 
 .card_text {
   color: #34384c;
-  /* font-size: 0.875rem; */
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
   margin-bottom: 1.25rem;
   font-weight: 400;
@@ -415,10 +391,14 @@ img {
   }
 
   .description {
-    margin-top: 140px;
+    /* margin-top: 140px; */
     background-color: #fcf7eb;
   }
   h2 {
     font-size: 20px;
   }
+  #root > div.main > a > p{
+   font-size: 14px;
+  }
+ 
 }
