@@ -15,6 +15,8 @@ import Search from "../components/shared/Search";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import CallToActionIcon from "@mui/icons-material/CallToAction";
 import "./projects.css";
+import Swal from "sweetalert2";
+
 
 //// for a popup ///
 import Dialog from "@mui/material/Dialog";
@@ -96,6 +98,15 @@ function Projects() {
       .then((res) => {
         setName("");
         setOpen(false);
+        Swal.fire({
+          title: " added Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllProjects();
         console.log(res.data.name);
       })
@@ -114,6 +125,15 @@ function Projects() {
       .put("http://localhost:5000/api/projects/" + id1, { name: edit.name })
       .then((res) => {
         setOpen1(false);
+        Swal.fire({
+          title: " Edited Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllProjects();
       })
       .catch((err) => {
@@ -127,6 +147,15 @@ function Projects() {
       .delete(`http://localhost:5000/api/projects/${id}`)
       .then((res) => {
         setLoading(true);
+        Swal.fire({
+          title: " deleted Successfully",
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+        });
         getAllProjects();
       })
       .catch((err) => {

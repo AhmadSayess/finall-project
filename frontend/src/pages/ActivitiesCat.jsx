@@ -8,7 +8,6 @@ import Footer from "../components/Footer/Footer";
 
 export const ActivitiesCat = () => {
   const [activity, setActivity] = useState([]);
-
   const { id } = useParams();
   const getActCat = async () => {
     await axios

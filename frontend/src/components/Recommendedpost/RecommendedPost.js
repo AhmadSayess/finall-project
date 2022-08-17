@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const RecommendedPost = ({ post, title, showDescription, p  }) => {
+
   return (
     <>
       <div className="main">

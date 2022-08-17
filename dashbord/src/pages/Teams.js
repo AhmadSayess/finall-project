@@ -100,7 +100,7 @@ function Teams() {
           setDATA(res.data);
 
           setLoading(false);
-          console.log("teams:", Teams);
+          // console.log("teams:", Teams);
         }
       })
       .catch((err) => {

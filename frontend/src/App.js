@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import { Activitiess } from "./pages/Activitiess";
 import ProtectedRoute from "./components/protectedRoute";
 import { ActivitiesCat } from "./pages/ActivitiesCat";
+import { Loading } from "./components/Loading/Loading";
 // import { appendFile } from 'fs';
 
 function App() {
@@ -21,13 +22,14 @@ function App() {
           <Route index path="/dashbord" element={<Dashbord />} />
         </Route>
         <Route path="/login" element={<Login />} />
-        {/* <Route index path="/dashbord" element={<Dashbord/>}/> */}
         <Route index path="/" element={<Home />} />
         <Route index path="/activities/:id" element={<ActivitiesCat />} />
         <Route index path="/activities" element={<Activities />} />
         <Route index path="/contactus" element={<ContactUs />} />
         <Route index path="/footer" element={<Footer />} />
         <Route index path="/activitie/:id" element={<Activitiess />} />
+        <Route index path="/loading" element={<Loading />} />
+
       </Routes>
     </BrowserRouter>
   );
